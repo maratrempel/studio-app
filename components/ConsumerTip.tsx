@@ -347,7 +347,7 @@ function SuccessReceipt({
             <Row label="עסק" value={venue} />
             <Row label="מקבל" value={workerName} />
             <Row label="סכום ברוטו" value={`${success.amount.toFixed(2)}₪`} />
-            <Row label="עמלת סליקה ופלטפורמה" value={`-${success.fee.toFixed(2)}₪`} muted />
+            <Row label="עמלת סליקה ופלטפורמה" value={`−${success.fee.toFixed(2)}₪`} muted />
             <div className="my-2 border-t border-dashed border-ink-300" />
             <Row label="לעובד (נטו לחלוקה)" value={`${success.net.toFixed(2)}₪`} bold />
             <Row label="אמצעי תשלום" value={methodLabel} />
@@ -378,7 +378,7 @@ function Row({ label, value, bold, muted }: { label: string; value: string; bold
   return (
     <div className="flex items-center justify-between">
       <dt className={`text-xs ${muted ? "text-ink-400" : "text-ink-500"}`}>{label}</dt>
-      <dd className={`text-sm ${bold ? "text-base font-bold text-ink-900" : muted ? "text-ink-400" : "text-ink-700"}`}>{value}</dd>
+      <dd className={`text-sm ${bold ? "text-base font-bold text-ink-900" : muted ? "text-ink-400" : "text-ink-700"}`} dir="ltr">{value}</dd>
     </div>
   );
 }

@@ -255,10 +255,10 @@ function LiveShiftPanel() {
           </p>
 
           <div className="mt-5 space-y-2">
-            <Row k="ממוצע לעובד" v={`${Math.round(pool / Math.max(1, checkedIn.length))}₪`} />
-            <Row k="ממוצע לשעה" v={`${Math.round(pool / Math.max(1, totalHours))}₪`} />
-            <Row k="עמלות פלטפורמה (1.8%)" v={`-${(pool * 0.018).toFixed(0)}₪`} muted />
-            <Row k="לחלוקה (משוער)" v={`${(pool * 0.982).toFixed(0)}₪`} bold />
+            <Row k="ממוצע לעובד" v={`${Math.round(pool / Math.max(1, checkedIn.length)).toLocaleString("he-IL")}₪`} />
+            <Row k="ממוצע לשעה" v={`${Math.round(pool / Math.max(1, totalHours)).toLocaleString("he-IL")}₪`} />
+            <Row k="עמלות פלטפורמה (1.8%)" v={`−${Math.round(pool * 0.018).toLocaleString("he-IL")}₪`} muted />
+            <Row k="לחלוקה (משוער)" v={`${Math.round(pool * 0.982).toLocaleString("he-IL")}₪`} bold />
           </div>
         </div>
 
@@ -725,7 +725,12 @@ function Row({ k, v, muted, bold }: { k: string; v: string; muted?: boolean; bol
   return (
     <div className="flex items-center justify-between">
       <span className={`text-sm ${muted ? "text-ink-400" : "text-ink-500"}`}>{k}</span>
-      <span className={`tabular-nums ${bold ? "text-base font-bold text-ink-900" : muted ? "text-ink-400" : "text-sm font-semibold text-ink-700"}`}>{v}</span>
+      <span
+        dir="ltr"
+        className={`tabular-nums ${bold ? "text-base font-bold text-ink-900" : muted ? "text-ink-400" : "text-sm font-semibold text-ink-700"}`}
+      >
+        {v}
+      </span>
     </div>
   );
 }

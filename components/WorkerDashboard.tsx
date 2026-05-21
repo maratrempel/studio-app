@@ -309,7 +309,7 @@ function BreakdownRow({
   return (
     <div className="flex items-center justify-between">
       <span className={`text-sm ${tones[tone]}`}>{label}</span>
-      <span className={`${bold ? "text-lg font-bold" : "text-sm font-semibold"} ${tones[tone]}`}>
+      <span className={`${bold ? "text-lg font-bold" : "text-sm font-semibold"} ${tones[tone]}`} dir="ltr">
         {sign}{Math.abs(value).toFixed(2)}₪
       </span>
     </div>
@@ -318,20 +318,20 @@ function BreakdownRow({
 
 function BarChart({ bars, max }: { bars: { day: string; value: number }[]; max: number }) {
   return (
-    <div className="flex h-48 items-end gap-2 sm:gap-3">
-      {bars.map((b, i) => {
-        const h = max > 0 ? (b.value / max) * 100 : 0;
-        const isToday = b.day === "היום";
-        return (
-          <div key={i} className="flex flex-1 flex-col items-center gap-2">
-            <div className="relative flex w-full flex-1 items-end">
+    <div>
+      <div className="flex h-44 items-end gap-2 sm:gap-3">
+        {bars.map((b, i) => {
+          const pct = max > 0 ? Math.max(6, (b.value / max) * 100) : 6;
+          const isToday = b.day === "היום";
+          return (
+            <div key={i} className="relative flex h-full flex-1 items-end">
               <div
                 className={`w-full rounded-t-lg transition-all ${
                   isToday
                     ? "bg-gradient-to-t from-brand-700 to-emerald-400"
                     : "bg-gradient-to-t from-ink-300 to-ink-200"
                 }`}
-                style={{ height: `${Math.max(8, h)}%` }}
+                style={{ height: `${pct}%` }}
               />
               {isToday && (
                 <span className="absolute -top-6 start-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink-900 px-1.5 py-0.5 text-[10px] font-medium text-white">
@@ -339,10 +339,21 @@ function BarChart({ bars, max }: { bars: { day: string; value: number }[]; max: 
                 </span>
               )}
             </div>
-            <span className={`text-xs ${isToday ? "font-bold text-brand-700" : "text-ink-500"}`}>{b.day}</span>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <div className="mt-2 flex gap-2 sm:gap-3">
+        {bars.map((b, i) => (
+          <span
+            key={i}
+            className={`flex-1 text-center text-xs ${
+              b.day === "היום" ? "font-bold text-brand-700" : "text-ink-500"
+            }`}
+          >
+            {b.day}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

@@ -51,8 +51,8 @@ export default function Onboarding() {
       <ol className="mb-10 flex items-center justify-between gap-3">
         {STEPS.map((s, i) => {
           const Icon = s.icon;
-          const current = step === s.key;
-          const complete = step > s.key;
+          const current = !done && step === s.key;
+          const complete = done || step > s.key;
           return (
             <li key={s.key} className="flex flex-1 items-center gap-3">
               <div
