@@ -281,13 +281,13 @@ function ModelCard({
   const tones = {
     brand: {
       border: selected ? "border-brand-600 ring-4 ring-brand-100" : "border-ink-200 hover:border-brand-300",
-      icon: "from-brand-600 to-emerald-500",
+      icon: "from-brand-600 to-sky-500",
       pill: "bg-brand-50 text-brand-700 ring-brand-200",
     },
     amber: {
-      border: selected ? "border-amber-500 ring-4 ring-amber-100" : "border-ink-200 hover:border-amber-300",
-      icon: "from-amber-500 to-orange-500",
-      pill: "bg-amber-50 text-amber-700 ring-amber-200",
+      border: selected ? "border-indigo-600 ring-4 ring-indigo-100" : "border-ink-200 hover:border-indigo-300",
+      icon: "from-indigo-600 to-brand-500",
+      pill: "bg-indigo-50 text-indigo-700 ring-indigo-200",
     },
   } as const;
   const t = tones[tone];
@@ -411,7 +411,7 @@ function CompleteState({ model, biz }: { model: Model; biz: { name: string } }) 
   return (
     <div className="flex flex-col items-center py-8 text-center">
       <div className="relative">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-emerald-400 text-white shadow-pop">
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-600 to-sky-400 text-white shadow-pop">
           <CheckCircle2 className="h-10 w-10" strokeWidth={2.4} />
         </div>
         <span className="absolute -inset-2 animate-pulseSoft rounded-full ring-4 ring-brand-200/50" />
@@ -423,8 +423,8 @@ function CompleteState({ model, biz }: { model: Model; biz: { name: string } }) 
       </p>
       <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 text-xs">
         <span className="rounded-full bg-brand-50 px-3 py-1 font-medium text-brand-700 ring-1 ring-brand-200">QR ייחודי הופק</span>
-        <span className="rounded-full bg-emerald-50 px-3 py-1 font-medium text-emerald-700 ring-1 ring-emerald-200">חשבון סליקה מקושר</span>
-        <span className="rounded-full bg-amber-50 px-3 py-1 font-medium text-amber-700 ring-1 ring-amber-200">דשבורד פעיל</span>
+        <span className="rounded-full bg-sky-50 px-3 py-1 font-medium text-sky-700 ring-1 ring-sky-200">חשבון סליקה מקושר</span>
+        <span className="rounded-full bg-indigo-50 px-3 py-1 font-medium text-indigo-700 ring-1 ring-indigo-200">דשבורד פעיל</span>
       </div>
     </div>
   );

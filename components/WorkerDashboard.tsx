@@ -78,7 +78,7 @@ export default function WorkerDashboard() {
       <header className="sticky top-0 z-30 border-b border-ink-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-brand-600 text-white font-bold">
               ד
             </div>
             <div className="leading-tight">
@@ -223,7 +223,7 @@ export default function WorkerDashboard() {
       {toast && (
         <div className="fixed bottom-6 start-1/2 z-40 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 animate-slideDown rounded-2xl border border-brand-200 bg-white p-4 shadow-pop">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-emerald-400 text-white">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-sky-400 text-white">
               <ArrowDownRight className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
@@ -262,8 +262,8 @@ function MetricCard({
   hint?: boolean;
 }) {
   const tones: Record<typeof tone, string> = {
-    primary: "from-brand-600 to-emerald-500 text-white",
-    amber: "from-amber-500 to-orange-500 text-white",
+    primary: "from-brand-600 to-sky-500 text-white",
+    amber: "from-sky-500 to-cyan-500 text-white",
     ink: "from-ink-900 to-ink-700 text-white",
   };
   return (
@@ -328,7 +328,7 @@ function BarChart({ bars, max }: { bars: { day: string; value: number }[]; max: 
               <div
                 className={`w-full rounded-t-lg transition-all ${
                   isToday
-                    ? "bg-gradient-to-t from-brand-700 to-emerald-400"
+                    ? "bg-gradient-to-t from-brand-700 to-sky-400"
                     : "bg-gradient-to-t from-ink-300 to-ink-200"
                 }`}
                 style={{ height: `${pct}%` }}

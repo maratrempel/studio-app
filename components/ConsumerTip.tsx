@@ -64,7 +64,7 @@ export default function ConsumerTip() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-gradient-to-b from-white via-ink-50 to-white">
       {/* Venue header */}
-      <header className="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-emerald-500 px-6 pb-10 pt-8 text-white">
+      <header className="relative overflow-hidden bg-gradient-to-br from-brand-800 via-brand-600 to-sky-500 px-6 pb-10 pt-8 text-white">
         <div className="absolute -end-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
         <div className="absolute -start-12 bottom-0 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
         <div className="relative flex items-center gap-3">
@@ -84,7 +84,7 @@ export default function ConsumerTip() {
         <div className="rounded-3xl border border-ink-200 bg-white p-5 shadow-card">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-300 to-orange-500 text-2xl font-bold text-white shadow-sm">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-brand-600 text-2xl font-bold text-white shadow-sm">
                 ד
               </div>
               <span className="absolute -bottom-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 ring-2 ring-white">
@@ -117,7 +117,7 @@ export default function ConsumerTip() {
                   className="transition active:scale-90"
                 >
                   <Star
-                    className={`h-5 w-5 ${n <= rating ? "fill-amber-400 text-amber-400" : "text-ink-300"}`}
+                    className={`h-5 w-5 ${n <= rating ? "fill-brand-500 text-brand-500" : "text-ink-300"}`}
                   />
                 </button>
               ))}
@@ -267,7 +267,7 @@ function PayButton({
   const tones: Record<typeof tone, string> = {
     dark: "bg-ink-900 text-white hover:bg-ink-800 shadow-card",
     light: "bg-white border border-ink-200 text-ink-900 hover:bg-ink-50",
-    bit: "bg-gradient-to-l from-purple-600 to-fuchsia-600 text-white shadow-pop hover:opacity-95",
+    bit: "bg-gradient-to-l from-brand-700 to-sky-500 text-white shadow-pop hover:opacity-95",
   };
 
   return (
@@ -327,7 +327,7 @@ function SuccessReceipt({
       <div className="w-full max-w-md animate-scaleIn rounded-t-3xl bg-white p-6 shadow-pop sm:rounded-3xl">
         <div className="flex flex-col items-center text-center">
           <div className="relative">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-emerald-400 text-white shadow-pop">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-600 to-sky-400 text-white shadow-pop">
               <CheckCircle2 className="h-10 w-10" strokeWidth={2.4} />
             </div>
             <span className="absolute -inset-2 animate-pulseSoft rounded-full ring-4 ring-brand-200/50" />

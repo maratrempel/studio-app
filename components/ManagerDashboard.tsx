@@ -63,13 +63,13 @@ export default function ManagerDashboard() {
     <div className="flex min-h-screen bg-ink-50">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 end-0 z-40 w-72 transform border-s border-ink-200 bg-white transition lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 start-0 z-40 w-72 transform border-e border-ink-200 bg-white transition lg:static lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         } lg:translate-x-0`}
       >
         <div className="flex h-16 items-center justify-between border-b border-ink-200 px-5">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-emerald-500 text-white font-bold">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-sky-500 text-white font-bold">
               ט
             </div>
             <div className="leading-tight">
@@ -142,8 +142,8 @@ export default function ManagerDashboard() {
             </div>
           </div>
           <div className="hidden items-center gap-2 sm:flex">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-200">
-              <span className="h-1.5 w-1.5 animate-pulseSoft rounded-full bg-emerald-500" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
+              <span className="h-1.5 w-1.5 animate-pulseSoft rounded-full bg-brand-500" />
               LIVE · 3 משמרות פעילות
             </span>
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink-900 text-sm font-bold text-white">מ</div>
@@ -215,7 +215,7 @@ function LiveShiftPanel() {
       {/* Control bar */}
       <div className="flex flex-col gap-3 rounded-3xl border border-ink-200 bg-white p-5 shadow-card sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${shiftActive ? "bg-emerald-100 text-emerald-700" : "bg-ink-100 text-ink-500"}`}>
+          <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${shiftActive ? "bg-brand-100 text-brand-700" : "bg-ink-100 text-ink-500"}`}>
             <Activity className={`h-6 w-6 ${shiftActive ? "animate-pulseSoft" : ""}`} />
           </div>
           <div>
@@ -323,7 +323,7 @@ function ServiceLogPanel() {
       <div className="rounded-2xl border border-ink-200 bg-white p-4 shadow-card">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-sm font-semibold text-ink-900">יומן שירות מחויב</p>
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
             <BadgeCheck className="h-3.5 w-3.5" /> תקין למבדק מע״מ
           </span>
           <span className="text-xs text-ink-500">חוזר רשות המסים 14/2018</span>
@@ -364,11 +364,11 @@ function ServiceLogPanel() {
                   <td className="px-5 py-3 tabular-nums text-ink-700">{r.distributed.toLocaleString("he-IL")}₪</td>
                   <td className="px-5 py-3">
                     {r.status === "compliant" ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-emerald-200">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
                         <BadgeCheck className="h-3.5 w-3.5" /> תקין
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700 ring-1 ring-amber-200">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-medium text-sky-700 ring-1 ring-sky-200">
                         <Clock className="h-3.5 w-3.5" /> בבדיקה
                       </span>
                     )}
@@ -389,10 +389,10 @@ function ServiceLogPanel() {
 /* ---------------- RULES ---------------- */
 
 const DEFAULT_RULES = [
-  { role: "מלצרים", pct: 70, color: "from-brand-600 to-emerald-500" },
-  { role: "מטבח", pct: 15, color: "from-amber-500 to-orange-500" },
-  { role: "בר", pct: 10, color: "from-indigo-500 to-blue-500" },
-  { role: "מארחות", pct: 5, color: "from-fuchsia-500 to-pink-500" },
+  { role: "מלצרים", pct: 70, color: "from-brand-600 to-sky-500" },
+  { role: "מטבח", pct: 15, color: "from-cyan-500 to-brand-500" },
+  { role: "בר", pct: 10, color: "from-indigo-500 to-brand-600" },
+  { role: "מארחות", pct: 5, color: "from-sky-400 to-brand-700" },
 ];
 
 function RulesPanel() {
@@ -462,7 +462,7 @@ function RulesPanel() {
               </div>
             ))}
             <div className={`mt-4 flex items-center justify-between rounded-xl p-3 text-sm ${
-              total === 100 ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"
+              total === 100 ? "bg-brand-50 text-brand-700 ring-1 ring-brand-200" : "bg-sky-50 text-sky-700 ring-1 ring-sky-200"
             }`}>
               <span className="font-medium">סך אחוזים</span>
               <span className="font-bold tabular-nums">{total}%</span>
@@ -571,7 +571,7 @@ function StaffPanel() {
               <p className="text-xs text-ink-500">{w.role} · ת.ז. ****1234</p>
             </div>
             <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-              w.checkedIn ? "bg-emerald-50 text-emerald-700" : "bg-ink-100 text-ink-500"
+              w.checkedIn ? "bg-brand-50 text-brand-700 ring-1 ring-brand-200" : "bg-ink-100 text-ink-500"
             }`}>
               {w.checkedIn ? "בתורנות" : "לא במשמרת"}
             </span>
@@ -636,7 +636,7 @@ function ExportPanel() {
           return (
             <div key={t.id} className="flex flex-col rounded-3xl border border-ink-200 bg-white p-6 shadow-card">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-500 text-white">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-sky-500 text-white">
                   <FileSpreadsheet className="h-5 w-5" />
                 </div>
                 <div>
@@ -667,16 +667,16 @@ function ExportPanel() {
       </div>
 
       {success && (
-        <div className="animate-slideDown rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+        <div className="animate-slideDown rounded-2xl border border-brand-200 bg-brand-50 p-4">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+            <CheckCircle2 className="h-5 w-5 text-brand-600" />
             <div className="flex-1">
-              <p className="text-sm font-semibold text-emerald-900">הקובץ הוכן בהצלחה</p>
-              <p className="text-xs text-emerald-700">
+              <p className="text-sm font-semibold text-brand-900">הקובץ הוכן בהצלחה</p>
+              <p className="text-xs text-brand-700">
                 payroll-{success}-2026-05.{success === "hilan" ? "xml" : "csv"} · 24KB · {INITIAL_STAFF.length} עובדים
               </p>
             </div>
-            <button className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700">
+            <button className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-700">
               <Download className="h-3.5 w-3.5" /> הורדה
             </button>
           </div>
@@ -702,9 +702,9 @@ function StatCard({
   tone: "primary" | "amber" | "indigo" | "ink";
 }) {
   const tones: Record<typeof tone, string> = {
-    primary: "from-brand-600 to-emerald-500",
-    amber: "from-amber-500 to-orange-500",
-    indigo: "from-indigo-500 to-blue-500",
+    primary: "from-brand-600 to-sky-500",
+    amber: "from-cyan-500 to-brand-500",
+    indigo: "from-indigo-600 to-brand-500",
     ink: "from-ink-900 to-ink-700",
   };
   return (
@@ -752,12 +752,12 @@ function SparkArea() {
     <svg viewBox={`0 0 ${w} ${h}`} className="h-48 w-full" preserveAspectRatio="none">
       <defs>
         <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#10b981" stopOpacity="0.35" />
-          <stop offset="1" stopColor="#10b981" stopOpacity="0" />
+          <stop offset="0" stopColor="#2563eb" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#2563eb" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={area} fill="url(#g)" />
-      <path d={path} fill="none" stroke="#059669" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path} fill="none" stroke="#1d4ed8" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
