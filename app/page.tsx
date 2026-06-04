@@ -109,15 +109,29 @@ const HERO_STATS = [
   { value: "100%", label: "תאימות לרשות המסים" },
 ];
 
+const BUILD_TIMESTAMP = new Date().toLocaleString("he-IL", {
+  timeZone: "Asia/Jerusalem",
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-ink-50 via-white to-ink-50">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
         {/* Hero */}
         <header className="mb-10 text-center sm:mb-14">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
-            <span className="h-1.5 w-1.5 animate-pulseSoft rounded-full bg-brand-500" />
-            גרסת אבטיפוס · Prototype
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
+              <span className="h-1.5 w-1.5 animate-pulseSoft rounded-full bg-brand-500" />
+              גרסת אבטיפוס · Prototype
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-1.5 text-xs font-medium text-ink-600">
+              <span>עודכן: {BUILD_TIMESTAMP}</span>
+            </div>
           </div>
           <h1 className="mt-5 text-3xl font-bold tracking-tight text-ink-900 sm:mt-6 sm:text-5xl">
             טיפלי <span className="text-brand-600">·</span> פלטפורמת תשרים דיגיטליים
