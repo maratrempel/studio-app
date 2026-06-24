@@ -3,730 +3,820 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>רדימיקס — בטון מוכן לכל פרויקט</title>
+  <title>רדימיקס — חברת הבטון והחומרים לבנייה</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Reset & Base ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Heebo', sans-serif;
-      color: #1a1a1a;
-      background: #fff;
-      overflow-x: hidden;
-    }
+    body { font-family: 'Heebo', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
 
-    /* ─── Design Tokens ─── */
     :root {
-      --orange:    #F47920;
-      --orange-d:  #D4630A;
-      --blue:      #003087;
-      --blue-m:    #004BB4;
-      --teal:      #00A9CE;
-      --teal-l:    #E5F6FB;
-      --neutral-50: #F8F8F8;
-      --neutral-100:#EFEFEF;
-      --neutral-200:#D4D4D4;
-      --neutral-700:#4A4A4A;
-      --neutral-900:#1A1A1A;
-      --white:     #FFFFFF;
-      --nav-h:     72px;
-      --transition: 0.25s ease;
+      --orange:     #F47920;
+      --orange-d:   #D4630A;
+      --blue:       #003087;
+      --blue-m:     #004BB4;
+      --teal:       #00A9CE;
+      --teal-l:     #E5F6FB;
+      --gray-50:    #F8F8F8;
+      --gray-100:   #EFEFEF;
+      --gray-200:   #D4D4D4;
+      --gray-500:   #6B6B6B;
+      --gray-700:   #4A4A4A;
+      --gray-900:   #1A1A1A;
+      --white:      #FFFFFF;
+      --nav-h:      80px;
+      --ease:       0.26s ease;
     }
 
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
     ul { list-style: none; }
 
-    /* ─── Utility ─── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px; border-radius: 2px; font-family: inherit;
-      font-size: 15px; font-weight: 700; cursor: pointer; border: none;
-      transition: background var(--transition), transform var(--transition);
-      letter-spacing: 0.3px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 34px; font-family: inherit; font-size: 15px; font-weight: 700;
+      cursor: pointer; border: none; border-radius: 1px;
+      transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+      letter-spacing: 0.2px; white-space: nowrap;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary   { background: var(--orange); color: var(--white); }
-    .btn-primary:hover { background: var(--orange-d); }
-    .btn-outline   { background: transparent; color: var(--white); border: 2px solid var(--white); }
-    .btn-outline:hover { background: rgba(255,255,255,0.12); }
-    .btn-blue { background: var(--blue); color: var(--white); }
-    .btn-blue:hover { background: var(--blue-m); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .btn-orange { background: var(--orange); color: var(--white); }
+    .btn-orange:hover { background: var(--orange-d); }
+    .btn-blue   { background: var(--blue);   color: var(--white); }
+    .btn-blue:hover   { background: var(--blue-m); }
+    .btn-ghost  { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.6); }
+    .btn-ghost:hover  { background: rgba(255,255,255,0.1); }
 
-    .section-label {
-      font-size: 12px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--orange);
-      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    .eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 14px;
     }
-    .section-label::before {
-      content: ''; display: block; width: 32px; height: 2px;
-      background: var(--orange); flex-shrink: 0;
-    }
-    .section-title {
-      font-size: clamp(26px, 3.5vw, 42px); font-weight: 800;
-      color: var(--blue); line-height: 1.2;
-    }
-    .section-sub {
-      font-size: 16px; color: var(--neutral-700); line-height: 1.7;
-      max-width: 560px; margin-top: 14px;
-    }
+    .eyebrow::before { content:''; display:block; width:28px; height:2px; background:var(--orange); flex-shrink:0; }
+    .eyebrow.light { color: var(--teal); }
+    .eyebrow.light::before { background: var(--teal); }
 
-    /* ─── Top Bar ─── */
+    .h2 { font-size: clamp(28px, 3.2vw, 44px); font-weight: 800; color: var(--blue); line-height: 1.18; }
+    .h2.white { color: var(--white); }
+    .lead { font-size: 17px; color: var(--gray-700); line-height: 1.75; margin-top: 16px; }
+    .lead.light { color: rgba(255,255,255,0.72); }
+
+    /* ───────── TOP BAR ───────── */
     .topbar {
-      background: var(--blue); color: rgba(255,255,255,0.75);
-      font-size: 13px; padding: 8px 0;
+      background: var(--blue); font-size: 13px; color: rgba(255,255,255,0.7);
+      padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .topbar .container {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .topbar a { color: rgba(255,255,255,0.85); transition: color var(--transition); }
+    .topbar .container { display: flex; justify-content: space-between; align-items: center; }
+    .topbar a { color: rgba(255,255,255,0.8); transition: color var(--ease); }
     .topbar a:hover { color: #fff; }
-    .topbar-links { display: flex; gap: 24px; }
-    .topbar-contact { display: flex; gap: 20px; align-items: center; }
+    .tb-left { display: flex; gap: 28px; }
+    .tb-right { display: flex; gap: 24px; align-items: center; }
+    .tb-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
 
-    /* ─── Nav ─── */
+    /* ───────── NAV ───────── */
     .nav {
-      position: sticky; top: 0; z-index: 900;
+      position: sticky; top: 0; z-index: 1000;
       background: var(--white); height: var(--nav-h);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.09);
     }
-    .nav .container {
-      height: 100%; display: flex; align-items: center;
-      justify-content: space-between; gap: 40px;
-    }
+    .nav > .container { height: 100%; display: flex; align-items: center; gap: 0; }
 
     /* Logo */
-    .logo {
-      display: flex; align-items: center; gap: 0;
-      flex-shrink: 0;
-    }
-    .logo-mark {
-      width: 46px; height: 46px; background: var(--orange);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .logo-mark svg { width: 28px; height: 28px; fill: white; }
-    .logo-text {
-      padding: 0 14px; font-size: 22px; font-weight: 900;
-      color: var(--blue); letter-spacing: -0.5px; line-height: 1;
-    }
-    .logo-text span { color: var(--orange); }
+    .logo { display: flex; align-items: center; flex-shrink: 0; padding-left: 40px; }
+    .logo img { height: 52px; width: auto; }
 
-    /* Mega Menu */
-    .nav-menu { display: flex; align-items: center; gap: 4px; height: 100%; }
-    .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+    /* Menu */
+    .nav-list { display: flex; align-items: stretch; height: 100%; margin-right: auto; }
+    .nav-item { position: static; display: flex; align-items: center; }
+
     .nav-link {
-      display: flex; align-items: center; gap: 5px; height: 100%;
-      padding: 0 16px; font-size: 15px; font-weight: 600; color: var(--neutral-900);
-      border-bottom: 3px solid transparent;
-      transition: color var(--transition), border-color var(--transition);
-      white-space: nowrap;
+      display: flex; align-items: center; gap: 6px; height: 100%;
+      padding: 0 20px; font-size: 15px; font-weight: 600; color: var(--gray-900);
+      border-bottom: 3px solid transparent; white-space: nowrap;
+      transition: color var(--ease), border-color var(--ease);
     }
-    .nav-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform var(--transition); }
+    .nav-link .chevron { width: 13px; height: 13px; flex-shrink: 0; transition: transform var(--ease); }
     .nav-item:hover .nav-link { color: var(--orange); border-bottom-color: var(--orange); }
-    .nav-item:hover .nav-link svg { transform: rotate(180deg); }
+    .nav-item:hover .chevron { transform: rotate(180deg); }
 
-    .mega-menu {
-      position: absolute; top: 100%; right: 0;
-      background: var(--white); min-width: 280px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    /* ── Mega Menu ── */
+    .mega {
+      position: fixed; left: 0; right: 0;
+      top: var(--nav-h); /* sits right below sticky nav */
+      background: var(--white);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.13);
       border-top: 3px solid var(--orange);
+      display: flex;
       opacity: 0; visibility: hidden; pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+      transform: translateY(-10px);
+      transition: opacity var(--ease), transform var(--ease), visibility var(--ease);
+      z-index: 999;
     }
-    .nav-item:hover .mega-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
-    .mega-menu ul { padding: 8px 0; }
-    .mega-menu li a {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 24px; font-size: 14px; font-weight: 500; color: var(--neutral-700);
-      transition: background var(--transition), color var(--transition);
-    }
-    .mega-menu li a:hover { background: var(--neutral-50); color: var(--orange); }
-    .mega-menu li a .dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; flex-shrink: 0; }
+    .nav-item:hover .mega { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
 
-    .nav-cta { margin-right: auto; }
+    .mega-links {
+      flex: 0 0 320px; padding: 32px 0; border-left: 1px solid var(--gray-100);
+    }
+    .mega-links ul { display: flex; flex-direction: column; }
+    .mega-links li a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 32px; font-size: 15px; font-weight: 600; color: var(--gray-900);
+      border-right: 3px solid transparent;
+      transition: background var(--ease), color var(--ease), border-color var(--ease);
+    }
+    .mega-links li a:hover { background: var(--gray-50); color: var(--orange); border-right-color: var(--orange); }
+    .mega-links li a .arrow { width: 14px; height: 14px; opacity: 0.4; transform: scaleX(-1); }
+    .mega-links li a:hover .arrow { opacity: 1; }
+    .mega-links .sub { font-size: 12px; color: var(--gray-500); font-weight: 400; margin-top: 2px; display: block; }
+
+    .mega-feature {
+      flex: 1; position: relative; min-height: 340px; overflow: hidden;
+    }
+    .mega-feature img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .mega-item:hover .mega-feature img { transform: scale(1.03); }
+    .mega-feature-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to left, rgba(0,48,135,0.82) 0%, rgba(0,48,135,0.3) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 36px 40px;
+    }
+    .mega-feature-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 8px;
+    }
+    .mega-feature h3 { font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+    .mega-feature p { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 300px; }
+
+    /* Nav CTA */
+    .nav-actions { display: flex; align-items: center; gap: 12px; padding-right: 8px; }
+    .nav-phone {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: var(--blue);
+    }
+    .nav-phone svg { width: 16px; height: 16px; }
 
     .hamburger { display: none; }
 
-    /* ─── Hero ─── */
+    /* ───────── HERO ───────── */
     .hero {
-      position: relative; min-height: 88vh;
-      display: flex; align-items: center;
+      position: relative; min-height: 90vh; display: flex; align-items: center;
       overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        linear-gradient(105deg, rgba(0,48,135,0.88) 0%, rgba(0,48,135,0.55) 50%, rgba(0,0,0,0.25) 100%),
-        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80&fit=crop') center/cover no-repeat;
+        linear-gradient(110deg, rgba(0,48,135,0.9) 0%, rgba(0,48,135,0.6) 45%, rgba(0,0,0,0.18) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=85&fit=crop') center/cover no-repeat;
     }
     .hero-bg::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
-      background: linear-gradient(to top, #fff 0%, transparent 100%);
+      content:''; position:absolute; bottom:0; left:0; right:0; height:160px;
+      background: linear-gradient(to top, #fff, transparent);
     }
-    .hero .container { position: relative; z-index: 1; padding-top: 40px; padding-bottom: 60px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(244,121,32,0.2); border: 1px solid rgba(244,121,32,0.5);
-      color: #FFB066; padding: 6px 16px; border-radius: 100px;
-      font-size: 13px; font-weight: 600; margin-bottom: 24px;
-      letter-spacing: 0.5px;
+    .hero > .container { position: relative; z-index: 1; padding-top: 32px; padding-bottom: 80px; }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px;
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.82); letter-spacing: 1px;
     }
-    .hero-badge .pulse { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(1.4); } }
+    .hero-kicker span {
+      width: 8px; height: 8px; background: var(--orange); border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(244,121,32,0.3); flex-shrink: 0;
+    }
+
     .hero h1 {
-      font-size: clamp(34px, 5.5vw, 68px); font-weight: 900;
-      color: var(--white); line-height: 1.1; max-width: 720px;
+      font-size: clamp(38px, 5.8vw, 72px); font-weight: 900;
+      color: var(--white); line-height: 1.08; max-width: 800px;
     }
-    .hero h1 em { color: var(--orange); font-style: normal; }
-    .hero-sub {
-      font-size: clamp(16px, 2vw, 19px); color: rgba(255,255,255,0.82);
-      line-height: 1.65; max-width: 540px; margin: 20px 0 36px;
-    }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-scroll {
-      position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: rgba(255,255,255,0.5); font-size: 11px; letter-spacing: 1px;
-      z-index: 1;
-    }
-    .hero-scroll .arrow { width: 20px; height: 20px; border-left: 2px solid rgba(255,255,255,0.4); border-bottom: 2px solid rgba(255,255,255,0.4); transform: rotate(-45deg); animation: bounce 1.6s infinite; }
-    @keyframes bounce { 0%,100% { transform:rotate(-45deg) translateY(0); } 50% { transform:rotate(-45deg) translateY(5px); } }
+    .hero h1 mark { background: none; color: var(--orange); }
 
-    /* ─── Stats Strip ─── */
-    .stats-strip {
-      background: var(--blue); color: var(--white);
-      padding: 0;
+    .hero-desc {
+      font-size: clamp(16px, 1.8vw, 19px); color: rgba(255,255,255,0.78);
+      line-height: 1.7; max-width: 560px; margin: 22px 0 40px;
     }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-    }
-    .stat-item {
-      padding: 36px 28px; text-align: center; position: relative;
-      border-left: 1px solid rgba(255,255,255,0.12);
-    }
-    .stat-item:last-child { border-left: none; }
-    .stat-num {
-      font-size: clamp(34px, 4vw, 52px); font-weight: 900; line-height: 1;
-      color: var(--orange);
-    }
-    .stat-num sup { font-size: 0.45em; vertical-align: super; }
-    .stat-label { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); margin-top: 6px; }
 
-    /* ─── Services ─── */
-    .services { padding: 96px 0; background: var(--neutral-50); }
-    .services-head { margin-bottom: 56px; }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-    }
-    .service-card {
-      background: var(--white); padding: 40px 36px;
-      transition: box-shadow var(--transition), transform var(--transition);
-      position: relative; overflow: hidden; cursor: default;
-    }
-    .service-card::before {
-      content: ''; position: absolute; bottom: 0; right: 0;
-      width: 0; height: 3px; background: var(--orange);
-      transition: width 0.35s ease;
-    }
-    .service-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
-    .service-card:hover::before { width: 100%; }
-    .service-icon {
-      width: 60px; height: 60px; background: var(--teal-l);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px;
-    }
-    .service-icon svg { width: 30px; height: 30px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
-    .service-card h3 { font-size: 20px; font-weight: 800; color: var(--blue); margin-bottom: 12px; }
-    .service-card p { font-size: 14px; color: var(--neutral-700); line-height: 1.7; }
-    .service-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 20px; font-size: 14px; font-weight: 700; color: var(--orange);
-      transition: gap var(--transition);
-    }
-    .service-link:hover { gap: 10px; }
-    .service-link svg { width: 16px; height: 16px; transform: scaleX(-1); }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
 
-    /* ─── About Strip ─── */
-    .about { padding: 96px 0; overflow: hidden; }
-    .about-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    /* ───────── STATS ───────── */
+    .stats { background: var(--blue); }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .about-img {
-      position: relative;
+    .stat {
+      padding: 40px 28px; text-align: center;
+      border-left: 1px solid rgba(255,255,255,0.1);
     }
-    .about-img img {
-      width: 100%; height: 500px; object-fit: cover; border-radius: 2px;
+    .stat:last-child { border-left: none; }
+    .stat-val {
+      font-size: clamp(36px,4vw,54px); font-weight: 900; color: var(--orange); line-height: 1;
     }
-    .about-img-badge {
-      position: absolute; bottom: -24px; left: -24px;
-      background: var(--orange); color: var(--white);
-      padding: 28px 32px; border-radius: 2px;
-      text-align: center;
-    }
-    .about-img-badge .num { font-size: 44px; font-weight: 900; line-height: 1; }
-    .about-img-badge .lbl { font-size: 13px; font-weight: 600; opacity: .85; }
-    .about-content { }
-    .about-content .section-sub { margin-bottom: 28px; }
-    .about-checks { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
-    .check-item { display: flex; align-items: flex-start; gap: 14px; }
-    .check-dot {
-      width: 22px; height: 22px; background: var(--orange); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
-    }
-    .check-dot svg { width: 12px; height: 12px; stroke: white; fill: none; stroke-width: 2.5; }
-    .check-item p { font-size: 15px; color: var(--neutral-700); line-height: 1.6; }
+    .stat-val sup { font-size: .44em; vertical-align: super; }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,0.65); margin-top: 8px; font-weight: 500; }
 
-    /* ─── Products ─── */
-    .products { padding: 96px 0; background: var(--blue); }
-    .products .section-title { color: var(--white); }
-    .products .section-label { color: var(--teal); }
-    .products .section-label::before { background: var(--teal); }
-    .products-head { margin-bottom: 56px; }
+    /* ───────── PRODUCTS / SERVICES ───────── */
+    .products { padding: 100px 0; background: var(--gray-50); }
+    .products-head { margin-bottom: 60px; }
+    .products-head .h2 { max-width: 520px; }
+
     .products-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+      display: grid; grid-template-columns: repeat(5,1fr); gap: 3px;
     }
     .product-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 32px 28px;
-      transition: background var(--transition);
-      cursor: default;
+      background: var(--white); overflow: hidden; cursor: pointer;
+      transition: box-shadow var(--ease), transform var(--ease);
+      position: relative;
     }
-    .product-card:hover { background: rgba(255,255,255,0.1); }
-    .product-num {
-      font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      color: var(--teal); margin-bottom: 20px;
+    .product-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.12); transform: translateY(-5px); z-index: 2; }
+    .product-card-img { height: 200px; overflow: hidden; }
+    .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .product-card:hover .product-card-img img { transform: scale(1.07); }
+    .product-card-body { padding: 28px 24px 32px; }
+    .product-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 10px; }
+    .product-card h3 { font-size: 17px; font-weight: 800; color: var(--blue); line-height: 1.3; margin-bottom: 10px; }
+    .product-card p { font-size: 13px; color: var(--gray-700); line-height: 1.65; }
+    .product-card-arrow {
+      display: flex; align-items: center; gap: 6px; margin-top: 18px;
+      font-size: 13px; font-weight: 700; color: var(--orange);
+      transition: gap var(--ease);
     }
-    .product-card h4 { font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 10px; }
-    .product-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.65; }
-    .product-tag {
-      display: inline-block; margin-top: 16px;
-      background: rgba(0,169,206,0.2); color: var(--teal);
-      font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px;
-      letter-spacing: 0.5px;
+    .product-card:hover .product-card-arrow { gap: 10px; }
+    .product-card-arrow svg { width: 14px; height: 14px; transform: scaleX(-1); }
+    .product-card-bar {
+      position: absolute; bottom: 0; right: 0; left: 0;
+      height: 3px; background: var(--orange);
+      transform: scaleX(0); transform-origin: right;
+      transition: transform 0.35s ease;
     }
+    .product-card:hover .product-card-bar { transform: scaleX(1); }
 
-    /* ─── CTA Banner ─── */
-    .cta-banner {
-      padding: 80px 0;
-      background: linear-gradient(135deg, var(--orange) 0%, #D4630A 100%);
-      text-align: center;
+    /* ───────── ABOUT ───────── */
+    .about { padding: 100px 0; }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
+    .about-media { position: relative; }
+    .about-media img { width: 100%; height: 520px; object-fit: cover; }
+    .about-badge {
+      position: absolute; bottom: -28px; left: -28px;
+      background: var(--orange); color: var(--white); padding: 30px 36px;
     }
-    .cta-banner h2 {
-      font-size: clamp(26px, 3.5vw, 40px); font-weight: 900;
-      color: var(--white); margin-bottom: 16px;
+    .about-badge .big { font-size: 48px; font-weight: 900; line-height: 1; }
+    .about-badge .sml { font-size: 13px; font-weight: 600; opacity: .85; margin-top: 4px; }
+    .about-text { }
+    .about-text .lead { max-width: 100%; margin-bottom: 32px; }
+    .about-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 40px; }
+    .about-li { display: flex; gap: 16px; align-items: flex-start; }
+    .about-li-icon {
+      width: 24px; height: 24px; background: var(--orange); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
     }
-    .cta-banner p { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 36px; }
-    .cta-banner .btn-outline { border-color: rgba(255,255,255,0.7); }
+    .about-li-icon svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.8; }
+    .about-li p { font-size: 15px; color: var(--gray-700); line-height: 1.65; }
 
-    /* ─── Projects ─── */
-    .projects { padding: 96px 0; }
-    .projects-head {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 48px;
+    /* ───────── HIGHLIGHT STRIP ───────── */
+    .highlight {
+      padding: 0;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 480px;
     }
-    .projects-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    .hl-panel {
+      position: relative; overflow: hidden; display: flex;
+      align-items: flex-end; padding: 56px 64px;
     }
-    .project-card {
-      position: relative; height: 320px; overflow: hidden; cursor: pointer;
-    }
-    .project-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .project-card:hover img { transform: scale(1.06); }
-    .project-overlay {
+    .hl-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hl-panel-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,48,135,0.9) 0%, transparent 55%);
+    }
+    .hl-panel-content { position: relative; z-index: 1; max-width: 440px; }
+    .hl-panel-content .eyebrow { color: var(--teal); }
+    .hl-panel-content .eyebrow::before { background: var(--teal); }
+    .hl-panel-content h3 { font-size: clamp(22px,2.5vw,32px); font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 16px; }
+    .hl-panel-content p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 28px; }
+
+    /* ───────── PROJECTS ───────── */
+    .projects { padding: 100px 0; background: var(--gray-50); }
+    .projects-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
+    .projects-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 3px; }
+    .proj { position: relative; overflow: hidden; cursor: pointer; }
+    .proj:first-child { grid-row: 1 / 3; }
+    .proj img { width: 100%; height: 100%; min-height: 240px; object-fit: cover; transition: transform 0.55s ease; display: block; }
+    .proj:first-child img { min-height: 500px; }
+    .proj:hover img { transform: scale(1.05); }
+    .proj-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,48,135,0.88) 0%, transparent 55%);
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 28px 28px;
+      transition: background var(--ease);
     }
-    .project-cat { font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
-    .project-name { font-size: 18px; font-weight: 800; color: var(--white); }
+    .proj:hover .proj-overlay { background: linear-gradient(to top, rgba(0,48,135,0.92) 0%, rgba(0,48,135,0.1) 70%); }
+    .proj-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+    .proj-name { font-size: 18px; font-weight: 800; color: var(--white); line-height: 1.3; }
 
-    /* ─── Contact ─── */
-    .contact { padding: 96px 0; background: var(--neutral-50); }
-    .contact-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    /* ───────── VALUES ───────── */
+    .values { padding: 100px 0; background: var(--blue); }
+    .values-head { text-align: center; margin-bottom: 64px; max-width: 680px; margin-left: auto; margin-right: auto; }
+    .values-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .value-card {
+      padding: 44px 36px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background var(--ease);
     }
-    .contact-form { background: var(--white); padding: 48px; box-shadow: 0 4px 32px rgba(0,0,0,0.07); }
-    .form-title { font-size: 24px; font-weight: 800; color: var(--blue); margin-bottom: 28px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--neutral-700); margin-bottom: 8px; }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; padding: 12px 16px; border: 1.5px solid var(--neutral-200);
-      border-radius: 2px; font-family: inherit; font-size: 14px;
-      color: var(--neutral-900); background: var(--neutral-50);
-      transition: border-color var(--transition);
-      outline: none;
+    .value-card:hover { background: rgba(255,255,255,0.09); }
+    .value-icon {
+      width: 56px; height: 56px; background: rgba(244,121,32,0.15); border-radius: 2px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus { border-color: var(--teal); background: var(--white); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .contact-info h3 { font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
-    .contact-info .section-sub { margin-bottom: 40px; }
-    .info-items { display: flex; flex-direction: column; gap: 28px; }
-    .info-item { display: flex; align-items: flex-start; gap: 20px; }
-    .info-icon {
-      width: 48px; height: 48px; background: var(--teal-l);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .info-icon svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
-    .info-item h4 { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
-    .info-item p { font-size: 14px; color: var(--neutral-700); line-height: 1.6; }
+    .value-icon svg { width: 26px; height: 26px; stroke: var(--orange); fill: none; stroke-width: 1.7; }
+    .value-card h4 { font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .value-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
 
-    /* ─── Footer ─── */
-    footer {
-      background: var(--neutral-900); color: rgba(255,255,255,0.65);
+    /* ───────── CONTACT ───────── */
+    .contact { padding: 100px 0; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+
+    .contact-info .h2 { margin-bottom: 8px; }
+    .contact-info .lead { margin-bottom: 44px; }
+    .info-list { display: flex; flex-direction: column; gap: 32px; }
+    .info-row { display: flex; gap: 20px; align-items: flex-start; }
+    .info-ico {
+      width: 50px; height: 50px; background: var(--teal-l); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .info-ico svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+    .info-row h5 { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 4px; letter-spacing: 0.5px; }
+    .info-row p { font-size: 15px; color: var(--gray-700); line-height: 1.6; }
+
+    .contact-form-wrap { background: var(--gray-50); padding: 52px; }
+    .form-title { font-size: 22px; font-weight: 800; color: var(--blue); margin-bottom: 32px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { margin-bottom: 22px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid var(--gray-200); background: var(--white);
+      font-family: inherit; font-size: 14px; color: var(--gray-900);
+      outline: none; transition: border-color var(--ease);
+      border-radius: 1px;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal); }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .submit-btn {
+      width: 100%; justify-content: center; padding: 16px;
+      font-size: 16px;
+    }
+
+    /* ───────── FOOTER ───────── */
+    footer { background: #111827; color: rgba(255,255,255,0.6); }
     .footer-top {
-      padding: 64px 0;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 72px 0 56px;
+      display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr; gap: 52px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .footer-brand .logo-text { color: var(--white); font-size: 20px; }
-    .footer-brand p { font-size: 14px; line-height: 1.7; margin-top: 16px; max-width: 260px; }
-    .footer-brand .social { display: flex; gap: 12px; margin-top: 24px; }
-    .social-btn {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.2);
+    .footer-logo img { height: 44px; width: auto; filter: brightness(0) invert(1); margin-bottom: 20px; }
+    .footer-logo p { font-size: 14px; line-height: 1.75; max-width: 280px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 24px; }
+    .s-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
       display: flex; align-items: center; justify-content: center;
-      transition: background var(--transition), border-color var(--transition);
+      transition: background var(--ease), border-color var(--ease);
     }
-    .social-btn:hover { background: var(--orange); border-color: var(--orange); }
-    .social-btn svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
-    .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
-    .footer-col ul li a { font-size: 14px; transition: color var(--transition); }
-    .footer-col ul li a:hover { color: var(--orange); }
+    .s-btn:hover { background: var(--orange); border-color: var(--orange); }
+    .s-btn svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.65); }
+    .footer-col h6 {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.9); margin-bottom: 20px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 11px; }
+    .footer-col ul a { font-size: 14px; transition: color var(--ease); }
+    .footer-col ul a:hover { color: var(--orange); }
+
     .footer-bottom {
-      padding: 20px 0;
+      padding: 22px 0;
       display: flex; justify-content: space-between; align-items: center;
       font-size: 13px;
     }
-    .footer-bottom a { color: rgba(255,255,255,0.5); transition: color var(--transition); }
-    .footer-bottom a:hover { color: var(--white); }
-    .footer-legal { display: flex; gap: 20px; }
-    .cemex-note {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 12px; color: rgba(255,255,255,0.35);
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { color: rgba(255,255,255,0.45); transition: color var(--ease); }
+    .footer-legal a:hover { color: #fff; }
+    .cemex-tag {
+      font-size: 12px; color: rgba(255,255,255,0.3);
+      display: flex; align-items: center; gap: 6px;
     }
-    .cemex-note strong { color: rgba(255,255,255,0.55); }
+    .cemex-tag strong { color: rgba(255,255,255,0.5); }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 1024px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-left: none; }
-      .about-inner { grid-template-columns: 1fr; }
-      .about-img img { height: 360px; }
-      .about-img-badge { bottom: -16px; left: 16px; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-inner { grid-template-columns: 1fr; }
+    /* ───────── RESPONSIVE ───────── */
+    @media (max-width: 1100px) {
+      .products-grid { grid-template-columns: repeat(3,1fr); }
+      .values-grid { grid-template-columns: repeat(2,1fr); }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 768px) {
-      .topbar .topbar-links { display: none; }
-      .nav-menu { display: none; }
-      .nav-cta { display: none; }
-      .hamburger {
-        display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px;
-      }
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .highlight { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .proj:first-child { grid-column: 1/3; grid-row: auto; }
+    }
+    @media (max-width: 720px) {
+      .topbar .tb-left { display: none; }
+      .nav-list, .nav-actions .btn { display: none; }
+      .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-right: 4px; }
       .hamburger span { display: block; width: 24px; height: 2px; background: var(--blue); border-radius: 2px; }
+      .logo { padding-left: 0; }
       .hero { min-height: 100svh; }
-      .hero-actions { flex-direction: column; }
+      .hero-btns { flex-direction: column; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .products-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
+      .proj:first-child { grid-column: auto; }
+      .field-row { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
-      .projects-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-<!-- ─── Top Bar ─── -->
+<!-- ══ TOP BAR ══ -->
 <div class="topbar">
   <div class="container">
-    <div class="topbar-links">
+    <div class="tb-left">
       <a href="#">פורטל לקוחות</a>
       <a href="#">מחירון</a>
       <a href="#">קריירה</a>
+      <a href="#">בטיחות וסביבה</a>
       <a href="#">English</a>
     </div>
-    <div class="topbar-contact">
-      <a href="tel:*3393">מוקד שירות: <strong>*3393</strong></a>
+    <div class="tb-right">
       <a href="mailto:info@readymix.co.il">info@readymix.co.il</a>
+      <div class="tb-divider"></div>
+      <a href="tel:*3393">מוקד שירות: <strong style="color:#fff;">*3393</strong></a>
     </div>
   </div>
 </div>
 
-<!-- ─── Nav ─── -->
+<!-- ══ NAV ══ -->
 <nav class="nav">
   <div class="container">
+
     <a href="#" class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="14,2 26,9 26,23 14,26 2,23 2,9" fill="white" opacity="0.9"/>
-          <polygon points="14,6 22,11 22,21 14,23 6,21 6,11" fill="none" stroke="white" stroke-width="1.2"/>
-          <circle cx="14" cy="16" r="4" fill="white"/>
-        </svg>
-      </div>
-      <div class="logo-text">רדי<span>מיקס</span></div>
+      <img src="https://readymix.co.il/wp-content/uploads/2019/10/logo.png" alt="רדימיקס" />
     </a>
 
-    <ul class="nav-menu">
+    <ul class="nav-list">
+
+      <!-- מוצרים ושירותים -->
       <li class="nav-item">
         <a href="#" class="nav-link">
-          שירותים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          מוצרים ושירותים
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </a>
-        <div class="mega-menu">
-          <ul>
-            <li><a href="#"><span class="dot"></span>בטון מוכן</a></li>
-            <li><a href="#"><span class="dot"></span>שירותי משאבה</a></li>
-            <li><a href="#"><span class="dot"></span>מוצרי בטון</a></li>
-            <li><a href="#"><span class="dot"></span>ייעוץ הנדסי</a></li>
-            <li><a href="#"><span class="dot"></span>ניתוח מעבדה</a></li>
-          </ul>
+        <div class="mega">
+          <div class="mega-links">
+            <ul>
+              <li>
+                <a href="#">
+                  <div>
+                    בטון וטיח
+                    <span class="sub">בטון מוכן, טיח, מלט</span>
+                  </div>
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <div>
+                    אבן וסיד
+                    <span class="sub">אבן גיר, סיד כבוי, מוצרי סיד</span>
+                  </div>
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <div>
+                    מוצרי בטון
+                    <span class="sub">בלוקים, אלמנטים, מוצרים מיוחדים</span>
+                  </div>
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <div>
+                    מוספים לבטון וטיח
+                    <span class="sub">תוספים, סיבים, פיגמנטים</span>
+                  </div>
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <div>
+                    קטלוגים
+                    <span class="sub">מפרטים טכניים, עלוני מוצר</span>
+                  </div>
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="mega-feature">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=85&fit=crop" alt="בטון מוכן" />
+            <div class="mega-feature-overlay">
+              <div class="mega-feature-tag">מוצרים נבחרים</div>
+              <h3>פתרונות חומרי<br />בנייה לכל פרויקט</h3>
+              <p>מגוון מוצרים מובילים לענף הבנייה הישראלי — מבטון מוכן ועד מוספים מתקדמים.</p>
+            </div>
+          </div>
         </div>
       </li>
+
+      <!-- פרויקטים -->
       <li class="nav-item">
         <a href="#" class="nav-link">
-          מוצרים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          פרויקטים
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </a>
-        <div class="mega-menu">
-          <ul>
-            <li><a href="#"><span class="dot"></span>בטון רגיל</a></li>
-            <li><a href="#"><span class="dot"></span>בטון עמיד מים</a></li>
-            <li><a href="#"><span class="dot"></span>בטון עצמי מהדק</a></li>
-            <li><a href="#"><span class="dot"></span>בטון חשוף</a></li>
-            <li><a href="#"><span class="dot"></span>בטון ירוק</a></li>
-          </ul>
+        <div class="mega">
+          <div class="mega-links">
+            <ul>
+              <li><a href="#"><div>פרויקטי תשתיות<span class="sub">כבישים, גשרים, מנהרות</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>בנייה למגורים<span class="sub">מגדלים, שכונות, פרויקטי נדל"ן</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>בנייה מסחרית ותעשייתית<span class="sub">מרכזי מסחר, מחסנים, מפעלים</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>מבני ציבור<span class="sub">בתי ספר, בתי חולים, מוסדות</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+            </ul>
+          </div>
+          <div class="mega-feature">
+            <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=85&fit=crop" alt="פרויקטים" />
+            <div class="mega-feature-overlay">
+              <div class="mega-feature-tag">פרויקטים נבחרים</div>
+              <h3>מעורבים בעיצוב<br />נוף ישראל</h3>
+              <p>רדימיקס לקחה חלק בפרויקטי הבנייה הגדולים ביותר בישראל.</p>
+            </div>
+          </div>
         </div>
       </li>
+
+      <!-- קיימות -->
       <li class="nav-item">
-        <a href="#" class="nav-link">פרויקטים</a>
+        <a href="#" class="nav-link">
+          קיימות
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <div class="mega">
+          <div class="mega-links">
+            <ul>
+              <li><a href="#"><div>סביבה ואקלים<span class="sub">הפחתת פליטות, יעדי Net Zero</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>בטון ירוק ECOPact<span class="sub">פתרונות CO₂ מופחת</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>אחריות חברתית<span class="sub">קהילה, שקיפות, ממשל תאגידי</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>דו"ח קיימות<span class="sub">פרסומים שנתיים</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+            </ul>
+          </div>
+          <div class="mega-feature">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&q=85&fit=crop" alt="קיימות" />
+            <div class="mega-feature-overlay">
+              <div class="mega-feature-tag">קיימות</div>
+              <h3>בונים עתיד<br />בר-קיימא</h3>
+              <p>מחויבות לסביבה ולדורות הבאים — הפחתת פליטות CO₂ ושימוש אחראי במשאבים.</p>
+            </div>
+          </div>
+        </div>
       </li>
+
+      <!-- אודות -->
       <li class="nav-item">
         <a href="#" class="nav-link">
           אודות
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </a>
-        <div class="mega-menu">
-          <ul>
-            <li><a href="#"><span class="dot"></span>החברה</a></li>
-            <li><a href="#"><span class="dot"></span>ערכים וחזון</a></li>
-            <li><a href="#"><span class="dot"></span>קיימות</a></li>
-            <li><a href="#"><span class="dot"></span>מצבת מפעלים</a></li>
-            <li><a href="#"><span class="dot"></span>קריירה</a></li>
-          </ul>
+        <div class="mega">
+          <div class="mega-links">
+            <ul>
+              <li><a href="#"><div>החברה<span class="sub">היסטוריה, ניהול, ערכים</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>מצבת מפעלים<span class="sub">30+ מפעלים ברחבי הארץ</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>קריירה<span class="sub">משרות פנויות, התפתחות מקצועית</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>מדיה ועיתונות<span class="sub">הודעות לעיתונות, גלריות</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+              <li><a href="#"><div>CEMEX<span class="sub">חברת האם הגלובלית</span></div><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+            </ul>
+          </div>
+          <div class="mega-feature">
+            <img src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=900&q=85&fit=crop" alt="אודות רדימיקס" />
+            <div class="mega-feature-overlay">
+              <div class="mega-feature-tag">אודות רדימיקס</div>
+              <h3>50 שנה של<br />מצוינות ומהימנות</h3>
+              <p>חברת הבטון והחומרים לבנייה המובילה בישראל, חברת בת של CEMEX.</p>
+            </div>
+          </div>
         </div>
       </li>
+
       <li class="nav-item">
-        <a href="#" class="nav-link">צור קשר</a>
+        <a href="#contact" class="nav-link">צור קשר</a>
       </li>
+
     </ul>
 
-    <a href="tel:*3393" class="btn btn-primary nav-cta" style="margin-right:0;margin-left:0;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.07.5H5.1a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z"/></svg>
-      *3393
-    </a>
+    <div class="nav-actions">
+      <a href="tel:*3393" class="nav-phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.07.5H5.1a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        *3393
+      </a>
+      <a href="#contact" class="btn btn-orange" style="padding:11px 24px;font-size:14px;">יצירת קשר</a>
+    </div>
 
     <button class="hamburger" aria-label="תפריט">
       <span></span><span></span><span></span>
     </button>
+
   </div>
 </nav>
 
-<!-- ─── Hero ─── -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="container">
-    <div class="hero-badge">
-      <span class="pulse"></span>
-      חברת הבטון המובילה בישראל
+    <div class="hero-kicker">
+      <span></span>
+      חברת הבטון והחומרים לבנייה המובילה בישראל
     </div>
     <h1>
-      <em>בטון מוכן</em> לכל<br />
-      פרויקט, בכל מקום
+      בונים את<br />
+      <mark>ישראל</mark><br />
+      מאז 1974
     </h1>
-    <p class="hero-sub">
-      רדימיקס — למעלה מ-50 שנה של מצוינות בייצור ואספקת בטון מוכן.
-      אנו מעניקים פתרונות בטון מתקדמים לענף הבנייה הישראלי.
+    <p class="hero-desc">
+      רדימיקס מספקת מגוון רחב של חומרי בנייה איכותיים — בטון מוכן, טיח, אבן, סיד ומוצרי בטון — לפרויקטי תשתיות, בנייה ומגורים ברחבי הארץ.
     </p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn btn-primary">בקשת הצעת מחיר</a>
-      <a href="#services" class="btn btn-outline">השירותים שלנו</a>
+    <div class="hero-btns">
+      <a href="#products" class="btn btn-orange">המוצרים שלנו</a>
+      <a href="#about" class="btn btn-ghost">אודות החברה</a>
     </div>
-  </div>
-  <div class="hero-scroll">
-    <span>גלול</span>
-    <div class="arrow"></div>
   </div>
 </section>
 
-<!-- ─── Stats Strip ─── -->
-<div class="stats-strip">
-  <div class="container" style="padding:0;">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-num">50<sup>+</sup></div>
+<!-- ══ STATS ══ -->
+<div class="stats">
+  <div class="container" style="padding:0">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-val">50<sup>+</sup></div>
         <div class="stat-label">שנות פעילות</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">30<sup>+</sup></div>
+      <div class="stat">
+        <div class="stat-val">30<sup>+</sup></div>
         <div class="stat-label">מפעלים ברחבי הארץ</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">5M<sup>+</sup></div>
+      <div class="stat">
+        <div class="stat-val">5M<sup>+</sup></div>
         <div class="stat-label">מ"ק בטון בשנה</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">1,500<sup>+</sup></div>
+      <div class="stat">
+        <div class="stat-val">1,500<sup>+</sup></div>
         <div class="stat-label">עובדים מקצועיים</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── Services ─── -->
-<section class="services" id="services">
+<!-- ══ PRODUCTS & SERVICES ══ -->
+<section class="products" id="products">
   <div class="container">
-    <div class="services-head">
-      <div class="section-label">מה אנחנו מציעים</div>
-      <h2 class="section-title">פתרונות בטון<br />מקצועיים ומתקדמים</h2>
-      <p class="section-sub">
-        אנו מספקים מגוון שירותי בטון מקיף — מייצור ואספקה ועד ייעוץ הנדסי מלא לכל סוגי הפרויקטים.
+    <div class="products-head">
+      <div class="eyebrow">מוצרים ושירותים</div>
+      <h2 class="h2">חומרי הבנייה שלנו</h2>
+      <p class="lead" style="max-width:560px">
+        ממגוון רחב של פתרונות בטון ועד חומרי גנים ותשתיות — רדימיקס מציעה את הפתרון המלא לכל פרויקט בנייה.
       </p>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=480&q=80&fit=crop" alt="בטון וטיח" />
         </div>
-        <h3>בטון מוכן</h3>
-        <p>ייצור ואספקה של בטון מוכן בכל כמות ומפרט, עם בקרת איכות מחמירה בכל שלב הייצור.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <div class="product-card-body">
+          <div class="product-num">01</div>
+          <h3>בטון וטיח</h3>
+          <p>בטון מוכן בכל מפרט, טיח מוכן ומלט לכל שימוש בנייה — ייצור מבוקר עם בקרת איכות מחמירה.</p>
+          <div class="product-card-arrow">
+            לפרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
         </div>
-        <h3>שירותי משאבה</h3>
-        <p>משאבות בטון חדישות לכל סוגי השטח, כולל שטחים מוגבלים, גובה רב ומיקומים מאתגרים.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div class="product-card-bar"></div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=480&q=80&fit=crop" alt="אבן וסיד" />
         </div>
-        <h3>בקרת איכות</h3>
-        <p>מעבדות מתקדמות לבדיקות בטון ופיקוח צמוד לאורך כל שרשרת הייצור, בהתאם לתקנים הישראליים.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        <div class="product-card-body">
+          <div class="product-num">02</div>
+          <h3>אבן וסיד</h3>
+          <p>אבן גיר, סיד כבוי ומוצרי סיד מגוונים לבנייה, לחקלאות ולתעשייה — מחצבות בתפעול ישיר.</p>
+          <div class="product-card-arrow">
+            לפרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
         </div>
-        <h3>מוצרי בטון</h3>
-        <p>מבחר רחב של מוצרי בטון מוגמרים: בלוקים, קורות, עמודים, רצפות ועוד — לכל שימוש בנייה.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div class="product-card-bar"></div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=480&q=80&fit=crop" alt="מוצרי בטון" />
         </div>
-        <h3>ייעוץ הנדסי</h3>
-        <p>צוות מהנדסים מנוסים המלווה אתכם מהתכנון ועד הביצוע, עם פתרונות מותאמים לכל פרויקט.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="product-card-body">
+          <div class="product-num">03</div>
+          <h3>מוצרי בטון</h3>
+          <p>בלוקים, אלמנטים מוכנים, לוחות ומוצרים מיוחדים — פתרונות בנייה מבטון לכל יישום.</p>
+          <div class="product-card-arrow">
+            לפרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
         </div>
-        <h3>בטון ירוק</h3>
-        <p>פתרונות בטון בני-קיימא עם טביעת רגל פחמנית מופחתת, שימוש בחומרים ממוחזרים ועמידה בתקני LEED.</p>
-        <a href="#" class="service-link">
-          לפרטים נוספים
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div class="product-card-bar"></div>
       </div>
+
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=480&q=80&fit=crop" alt="מוספים לבטון וטיח" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-num">04</div>
+          <h3>מוספים לבטון וטיח</h3>
+          <p>מגוון תוספים כימיים, סיבים ופיגמנטים המשפרים את תכונות הבטון והטיח בהתאם לדרישות הפרויקט.</p>
+          <div class="product-card-arrow">
+            לפרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+        <div class="product-card-bar"></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=480&q=80&fit=crop" alt="קטלוגים" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-num">05</div>
+          <h3>קטלוגים</h3>
+          <p>עלוני מוצר, מפרטים טכניים ומדריכי יישום להורדה — מידע מקיף לאנשי מקצוע ומתכננים.</p>
+          <div class="product-card-arrow">
+            להורדה
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+        <div class="product-card-bar"></div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ─── About ─── -->
+<!-- ══ ABOUT ══ -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-inner">
-      <div class="about-img">
-        <img
-          src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=700&q=80&fit=crop"
-          alt="מפעל בטון רדימיקס"
-        />
-        <div class="about-img-badge">
-          <div class="num">50+</div>
-          <div class="lbl">שנות ניסיון</div>
+      <div class="about-media">
+        <img src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=720&q=85&fit=crop" alt="מפעל רדימיקס" />
+        <div class="about-badge">
+          <div class="big">50+</div>
+          <div class="sml">שנות פעילות</div>
         </div>
       </div>
-      <div class="about-content">
-        <div class="section-label">מי אנחנו</div>
-        <h2 class="section-title">חברת הבטון<br />המובילה בישראל</h2>
-        <p class="section-sub">
-          רדימיקס היא חברת הבטון הגדולה בישראל, חברת בת של ענקית הבנייה הגלובלית CEMEX.
-          אנו מספקים פתרונות בטון מתקדמים לפרויקטים של תשתיות, מגורים, מסחר ותעשייה.
+      <div class="about-text">
+        <div class="eyebrow">מי אנחנו</div>
+        <h2 class="h2">חברה ישראלית<br />עם חזון גלובלי</h2>
+        <p class="lead">
+          רדימיקס הינה חברת הבטון והחומרים לבנייה הגדולה בישראל, הפועלת מאז 1974. החברה היא חברת בת של CEMEX — אחת מחברות חומרי הבנייה הגדולות בעולם, הפועלת ביותר מ-50 מדינות.
         </p>
-        <div class="about-checks">
-          <div class="check-item">
-            <div class="check-dot">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <p>רשת של למעלה מ-30 מפעלי בטון פרוסה ברחבי הארץ לאספקה מהירה ואמינה.</p>
+        <div class="about-list">
+          <div class="about-li">
+            <div class="about-li-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <p>רשת של למעלה מ-30 מפעלי בטון ומחצבות הפרוסה לאורך כל רחבי ישראל, המאפשרת אספקה מהירה ואמינה לכל אתר.</p>
           </div>
-          <div class="check-item">
-            <div class="check-dot">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <p>מעבדות בקרת איכות מוסמכות ומתקדמות הפועלות 24/7 לאורך כל שרשרת הייצור.</p>
+          <div class="about-li">
+            <div class="about-li-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <p>מעבדות בקרת איכות מוסמכות הפועלות בכל מפעל, עם פיקוח רציף על כל שלבי הייצור בהתאם לתקן ישראלי 118.</p>
           </div>
-          <div class="check-item">
-            <div class="check-dot">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <p>גישה לטכנולוגיות ומחקר עולמי של CEMEX להבאת חדשנות לשוק הישראלי.</p>
+          <div class="about-li">
+            <div class="about-li-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <p>גישה לטכנולוגיות פיתוח ומחקר עולמיות של CEMEX, המאפשרת הבאת חדשנות ופתרונות מתקדמים לשוק הישראלי.</p>
           </div>
-          <div class="check-item">
-            <div class="check-dot">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <p>מחויבות לקיימות — הפחתת פליטות CO₂ ושימוש בחומרי גלם ממוחזרים.</p>
+          <div class="about-li">
+            <div class="about-li-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <p>מחויבות לאחריות סביבתית וחברתית — הפחתת פליטות CO₂, שימוש בחומרים ממוחזרים ועמידה ביעדי קיימות גלובליים.</p>
           </div>
         </div>
         <a href="#" class="btn btn-blue">קרא עוד על החברה</a>
@@ -735,170 +825,208 @@
   </div>
 </section>
 
-<!-- ─── Products ─── -->
-<section class="products" id="products">
-  <div class="container">
-    <div class="products-head">
-      <div class="section-label">סוגי הבטון שלנו</div>
-      <h2 class="section-title">מגוון פתרונות<br />בטון לכל שימוש</h2>
-    </div>
-    <div class="products-grid">
-      <div class="product-card">
-        <div class="product-num">01</div>
-        <h4>בטון רגיל</h4>
-        <p>לבנייה יומיומית — יסודות, קירות, רצפות. עומד בתקן ישראלי 118 ובמפרטים הנדסיים מחמירים.</p>
-        <span class="product-tag">C16 – C40</span>
-      </div>
-      <div class="product-card">
-        <div class="product-num">02</div>
-        <h4>בטון עמיד מים</h4>
-        <p>לבסיסים תת-קרקעיים, בריכות, מרתפים ומבנים בסביבה לחה. עם תוספים מיוחדים לאטימות מלאה.</p>
-        <span class="product-tag">WPC</span>
-      </div>
-      <div class="product-card">
-        <div class="product-num">03</div>
-        <h4>בטון עצמי מהדק</h4>
-        <p>זורם ללא רטט — אידיאלי לצורות מורכבות ולאזורים בעלי עומס ברזל גבוה. איכות פני שטח מעולה.</p>
-        <span class="product-tag">SCC</span>
-      </div>
-      <div class="product-card">
-        <div class="product-num">04</div>
-        <h4>בטון בני-קיימא</h4>
-        <p>תכולת פחמן מופחתת עם ביצועים מלאים. מתאים לבנייה ירוקה ועמידה בתקני LEED ו-BREEAM.</p>
-        <span class="product-tag">ECOPact</span>
-      </div>
+<!-- ══ HIGHLIGHT PANELS ══ -->
+<div class="highlight">
+  <!-- Panel 1: Sustainability -->
+  <div class="hl-panel">
+    <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=85&fit=crop" alt="קיימות" />
+    <div class="hl-panel-overlay" style="background:linear-gradient(to top, rgba(0,48,135,0.88) 0%, rgba(0,48,135,0.3) 70%, transparent 100%);"></div>
+    <div class="hl-panel-content">
+      <div class="eyebrow light">קיימות וסביבה</div>
+      <h3>בנייה אחראית<br />לעתיד</h3>
+      <p>
+        כחלק ממחויבות CEMEX ליעד Net Zero 2050, רדימיקס מובילה יוזמות להפחתת טביעת הרגל הפחמנית של ענף הבנייה בישראל.
+      </p>
+      <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 24px;">מידע על קיימות</a>
     </div>
   </div>
-</section>
 
-<!-- ─── CTA Banner ─── -->
-<section class="cta-banner">
-  <div class="container">
-    <h2>מוכנים להתחיל את הפרויקט הבא שלכם?</h2>
-    <p>צרו קשר עם צוות המומחים שלנו לקבלת ייעוץ והצעת מחיר מותאמת אישית.</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="#contact" class="btn" style="background:white;color:var(--orange);font-weight:800;">בקשת הצעת מחיר</a>
-      <a href="tel:*3393" class="btn btn-outline">*3393 — התקשרו עכשיו</a>
+  <!-- Panel 2: Innovation -->
+  <div class="hl-panel">
+    <img src="https://images.unsplash.com/photo-1581093458791-9d42e3c43011?w=800&q=85&fit=crop" alt="חדשנות" />
+    <div class="hl-panel-overlay" style="background:linear-gradient(to top, rgba(20,20,20,0.88) 0%, rgba(20,20,20,0.25) 70%, transparent 100%);"></div>
+    <div class="hl-panel-content">
+      <div class="eyebrow light">מחקר ופיתוח</div>
+      <h3>חדשנות<br />בכל יציקה</h3>
+      <p>
+        רדימיקס מיישמת פתרונות טכנולוגיים מתקדמים הנחקרים ומפותחים במרכזי מו"פ של CEMEX ברחבי העולם.
+      </p>
+      <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 24px;">טכנולוגיה וחדשנות</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─── Projects ─── -->
+<!-- ══ PROJECTS ══ -->
 <section class="projects" id="projects">
   <div class="container">
-    <div class="projects-head">
+    <div class="projects-top">
       <div>
-        <div class="section-label">מה בנינו</div>
-        <h2 class="section-title">פרויקטים נבחרים</h2>
+        <div class="eyebrow">עבודות נבחרות</div>
+        <h2 class="h2">פרויקטים<br />מובילים</h2>
       </div>
       <a href="#" class="btn btn-blue">כל הפרויקטים</a>
     </div>
     <div class="projects-grid">
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80&fit=crop" alt="פרויקט מגורים" />
-        <div class="project-overlay">
-          <div class="project-cat">בנייה למגורים</div>
-          <div class="project-name">מגדל על הים, תל אביב</div>
+      <div class="proj">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=85&fit=crop" alt="פרויקט מגדלים" />
+        <div class="proj-overlay">
+          <div class="proj-cat">בנייה למגורים</div>
+          <div class="proj-name">מגדל רמת גן — 42 קומות</div>
         </div>
       </div>
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&q=80&fit=crop" alt="פרויקט תשתיות" />
-        <div class="project-overlay">
-          <div class="project-cat">תשתיות ותחבורה</div>
-          <div class="project-name">גשר חיפה–חדרה</div>
+      <div class="proj">
+        <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=500&q=80&fit=crop" alt="תשתיות" />
+        <div class="proj-overlay">
+          <div class="proj-cat">תשתיות</div>
+          <div class="proj-name">קו רכבת ישראל</div>
         </div>
       </div>
-      <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&fit=crop" alt="פרויקט מסחרי" />
-        <div class="project-overlay">
-          <div class="project-cat">בנייה מסחרית</div>
-          <div class="project-name">מרכז לוגיסטיקה, נשר</div>
+      <div class="proj">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&q=80&fit=crop" alt="מסחרי" />
+        <div class="proj-overlay">
+          <div class="proj-cat">בנייה מסחרית</div>
+          <div class="proj-name">פארק עסקים חדרה</div>
+        </div>
+      </div>
+      <div class="proj">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=500&q=80&fit=crop" alt="מנהרה" />
+        <div class="proj-overlay">
+          <div class="proj-cat">תשתיות</div>
+          <div class="proj-name">פרויקט מנהרות הכרמל</div>
+        </div>
+      </div>
+      <div class="proj">
+        <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=500&q=80&fit=crop" alt="ציבורי" />
+        <div class="proj-overlay">
+          <div class="proj-cat">מבני ציבור</div>
+          <div class="proj-name">קמפוס אוניברסיטאי</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── Contact ─── -->
+<!-- ══ VALUES ══ -->
+<section class="values">
+  <div class="container">
+    <div class="values-head">
+      <div class="eyebrow light">הערכים שלנו</div>
+      <h2 class="h2 white">האחריות שלנו<br />כלפי לקוחות, עובדים וסביבה</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>בטיחות</h4>
+        <p>בטיחות העובדים, הלקוחות והסביבה היא ערך עליון בכל פעולה שלנו — אפס פשרות.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+        </div>
+        <h4>איכות</h4>
+        <p>בקרת איכות מחמירה בכל שלב — מחומר הגלם ועד האספקה לאתר, בהתאם לתקנים הגבוהים ביותר.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h4>שירות</h4>
+        <p>צוות מקצועי ומנוסה מלווה כל לקוח מהתכנון ועד הביצוע — אמינות ומקצועיות בכל פרויקט.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h4>קיימות</h4>
+        <p>הפחתת פליטות, ניצול יעיל של משאבים ופיתוח פתרונות ירוקים — לדורות הבאים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
 <section class="contact" id="contact">
   <div class="container">
     <div class="contact-inner">
       <div class="contact-info">
-        <div class="section-label">דברו איתנו</div>
-        <h2 class="section-title">צרו קשר<br />עם הצוות שלנו</h2>
-        <p class="section-sub">
-          מהנדסי מכירות מנוסים עומדים לרשותכם לייעוץ, הצעת מחיר ותיאום אספקה.
+        <div class="eyebrow">דברו איתנו</div>
+        <h2 class="h2">צרו קשר</h2>
+        <p class="lead">
+          צוות המומחים שלנו עומד לרשותכם לכל שאלה, בקשה לפרטים ותיאום.
         </p>
-        <div class="info-items">
-          <div class="info-item">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.07.5H5.1a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z"/></svg>
+        <div class="info-list">
+          <div class="info-row">
+            <div class="info-ico">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.07.5H5.1a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             </div>
             <div>
-              <h4>מוקד שירות</h4>
-              <p>*3393 — זמין ימים א'–ו', 06:00–18:00</p>
+              <h5>מוקד שירות לקוחות</h5>
+              <p>*3393<br /><span style="font-size:13px;color:var(--gray-500)">ימים א'–ו', 06:00–18:00</span></p>
             </div>
           </div>
-          <div class="info-item">
-            <div class="info-icon">
+          <div class="info-row">
+            <div class="info-ico">
               <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div>
-              <h4>דואר אלקטרוני</h4>
+              <h5>דואר אלקטרוני</h5>
               <p>info@readymix.co.il</p>
             </div>
           </div>
-          <div class="info-item">
-            <div class="info-icon">
+          <div class="info-row">
+            <div class="info-ico">
               <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
-              <h4>משרד ראשי</h4>
-              <p>נשר, ישראל<br />רחוב הנשיאים 1</p>
+              <h5>משרד ראשי</h5>
+              <p>נשר, ישראל</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="contact-form">
-        <div class="form-title">בקשת הצעת מחיר</div>
-        <div class="form-row">
-          <div class="form-group">
+      <div class="contact-form-wrap">
+        <div class="form-title">השאירו פרטים</div>
+        <div class="field-row">
+          <div class="field">
             <label>שם פרטי</label>
-            <input type="text" placeholder="ישראל" />
+            <input type="text" placeholder="שם פרטי" />
           </div>
-          <div class="form-group">
+          <div class="field">
             <label>שם משפחה</label>
-            <input type="text" placeholder="ישראלי" />
+            <input type="text" placeholder="שם משפחה" />
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
+        <div class="field-row">
+          <div class="field">
             <label>טלפון</label>
-            <input type="tel" placeholder="05X-XXX-XXXX" />
+            <input type="tel" placeholder="05X-XXXXXXX" />
           </div>
-          <div class="form-group">
+          <div class="field">
             <label>דואר אלקטרוני</label>
             <input type="email" placeholder="your@email.com" />
           </div>
         </div>
-        <div class="form-group">
-          <label>סוג הפרויקט</label>
+        <div class="field">
+          <label>נושא הפנייה</label>
           <select>
-            <option value="">בחר סוג פרויקט</option>
-            <option>בנייה למגורים</option>
-            <option>בנייה מסחרית / תעשייתית</option>
-            <option>תשתיות ותחבורה</option>
-            <option>בנייה ציבורית</option>
+            <option value="">בחרו נושא</option>
+            <option>בטון וטיח</option>
+            <option>אבן וסיד</option>
+            <option>מוצרי בטון</option>
+            <option>מוספים לבטון וטיח</option>
+            <option>קטלוגים ומפרטים</option>
             <option>אחר</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>פרטי הבקשה</label>
-          <textarea placeholder="תארו את הפרויקט, כמות הבטון הנדרשת ומועד האספקה המבוקש..."></textarea>
+        <div class="field">
+          <label>הודעה</label>
+          <textarea placeholder="פרטו את פנייתכם..."></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
-          שלחו בקשה
+        <button type="submit" class="btn btn-orange submit-btn">
+          שלחו פנייה
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
@@ -906,60 +1034,55 @@
   </div>
 </section>
 
-<!-- ─── Footer ─── -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="container">
     <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#" class="logo">
-          <div class="logo-mark">
-            <svg viewBox="0 0 28 28"><polygon points="14,2 26,9 26,23 14,26 2,23 2,9" fill="white" opacity="0.9"/><circle cx="14" cy="16" r="4" fill="white"/></svg>
-          </div>
-          <div class="logo-text">רדי<span>מיקס</span></div>
-        </a>
-        <p>חברת הבטון המובילה בישראל. פתרונות בטון מתקדמים לכל סוגי הפרויקטים, בכל רחבי הארץ.</p>
-        <div class="social">
-          <a href="#" class="social-btn" aria-label="LinkedIn">
+      <div class="footer-logo">
+        <img src="https://readymix.co.il/wp-content/uploads/2019/10/logo.png" alt="רדימיקס" />
+        <p>חברת הבטון והחומרים לבנייה המובילה בישראל. פועלים מאז 1974 עם רשת של למעלה מ-30 מפעלים ברחבי הארץ.</p>
+        <div class="footer-social">
+          <a href="#" class="s-btn" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
-          <a href="#" class="social-btn" aria-label="Facebook">
+          <a href="#" class="s-btn" aria-label="Facebook">
             <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           </a>
-          <a href="#" class="social-btn" aria-label="YouTube">
+          <a href="#" class="s-btn" aria-label="YouTube">
             <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
           </a>
         </div>
       </div>
       <div class="footer-col">
-        <h5>שירותים</h5>
+        <h6>מוצרים</h6>
         <ul>
-          <li><a href="#">בטון מוכן</a></li>
-          <li><a href="#">שירותי משאבה</a></li>
+          <li><a href="#">בטון וטיח</a></li>
+          <li><a href="#">אבן וסיד</a></li>
           <li><a href="#">מוצרי בטון</a></li>
-          <li><a href="#">ייעוץ הנדסי</a></li>
-          <li><a href="#">בקרת איכות</a></li>
-          <li><a href="#">בטון ירוק</a></li>
+          <li><a href="#">מוספים לבטון וטיח</a></li>
+          <li><a href="#">קטלוגים</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>החברה</h5>
+        <h6>החברה</h6>
         <ul>
           <li><a href="#">אודות רדימיקס</a></li>
-          <li><a href="#">ערכים וחזון</a></li>
-          <li><a href="#">קיימות</a></li>
           <li><a href="#">מצבת מפעלים</a></li>
+          <li><a href="#">קיימות וסביבה</a></li>
           <li><a href="#">קריירה</a></li>
           <li><a href="#">מדיה ועיתונות</a></li>
+          <li><a href="#">CEMEX</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>צור קשר</h5>
+        <h6>שירות לקוחות</h6>
         <ul>
           <li><a href="tel:*3393">*3393 — מוקד שירות</a></li>
           <li><a href="mailto:info@readymix.co.il">info@readymix.co.il</a></li>
-          <li><a href="#">מפת מפעלים</a></li>
           <li><a href="#">פורטל לקוחות</a></li>
+          <li><a href="#">מפת מפעלים</a></li>
           <li><a href="#">שאלות נפוצות</a></li>
+          <li><a href="#">בטיחות</a></li>
         </ul>
       </div>
     </div>
@@ -970,10 +1093,7 @@
         <a href="#">תנאי שימוש</a>
         <a href="#">נגישות</a>
       </div>
-      <div class="cemex-note">
-        חברת בת של
-        <strong>CEMEX</strong>
-      </div>
+      <div class="cemex-tag">חברת בת של <strong>CEMEX</strong></div>
     </div>
   </div>
 </footer>
