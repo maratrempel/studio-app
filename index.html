@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>רדימיקס — חברת הבטון והחומרים לבנייה</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Heebo', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
+    body { font-family: 'Assistant', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
 
     :root {
       --orange:     #F47920;
@@ -37,7 +37,7 @@
 
     .btn {
       display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 34px; font-family: inherit; font-size: 15px; font-weight: 700;
+      padding: 14px 34px; font-family: 'Assistant', sans-serif; font-size: 15px; font-weight: 700;
       cursor: pointer; border: none; border-radius: 1px;
       transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
       letter-spacing: 0.2px; white-space: nowrap;
@@ -153,13 +153,58 @@
     .mega-feature h3 { font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
     .mega-feature p { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 300px; }
 
-    /* Nav CTA */
-    .nav-actions { display: flex; align-items: center; gap: 12px; padding-right: 8px; }
-    .nav-phone {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 14px; font-weight: 700; color: var(--blue);
+    /* Nav Actions */
+    .nav-actions { display: flex; align-items: center; gap: 8px; padding-right: 4px; flex-shrink: 0; }
+
+    .nav-search-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: none; background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; color: var(--gray-700);
+      transition: color var(--ease), background var(--ease);
+      flex-shrink: 0;
     }
-    .nav-phone svg { width: 16px; height: 16px; }
+    .nav-search-btn:hover { color: var(--orange); background: var(--gray-50); }
+    .nav-search-btn svg { width: 18px; height: 18px; }
+
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+      font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+      border-radius: 1px; white-space: nowrap; transition: background var(--ease), color var(--ease), border-color var(--ease);
+    }
+    .nav-btn-outline {
+      background: transparent; color: var(--blue);
+      border: 1.5px solid var(--gray-200);
+    }
+    .nav-btn-outline:hover { border-color: var(--blue); background: var(--gray-50); }
+    .nav-btn-fill {
+      background: var(--orange); color: var(--white); border: 1.5px solid var(--orange);
+    }
+    .nav-btn-fill:hover { background: var(--orange-d); border-color: var(--orange-d); }
+
+    /* Search Overlay */
+    .search-overlay {
+      position: fixed; inset: 0; background: rgba(0,48,135,0.94); z-index: 2000;
+      display: flex; align-items: flex-start; justify-content: center; padding-top: 120px;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .search-overlay.active { opacity: 1; visibility: visible; }
+    .search-box {
+      width: 100%; max-width: 700px; padding: 0 32px; position: relative;
+    }
+    .search-box input {
+      width: 100%; padding: 20px 64px 20px 24px;
+      font-family: inherit; font-size: 22px; color: var(--white);
+      background: rgba(255,255,255,0.1); border: none; border-bottom: 2px solid rgba(255,255,255,0.4);
+      outline: none;
+    }
+    .search-box input::placeholder { color: rgba(255,255,255,0.45); }
+    .search-box input:focus { border-bottom-color: var(--orange); }
+    .search-close {
+      position: absolute; top: 50%; left: 32px; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6);
+      font-size: 28px; line-height: 1; transition: color var(--ease);
+    }
+    .search-close:hover { color: #fff; }
+    .search-hint { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 12px; padding: 0 24px; }
 
     .hamburger { display: none; }
 
@@ -277,25 +322,56 @@
     .about-li-icon svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.8; }
     .about-li p { font-size: 15px; color: var(--gray-700); line-height: 1.65; }
 
-    /* ───────── HIGHLIGHT STRIP ───────── */
-    .highlight {
-      padding: 0;
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 480px;
+
+    /* ───────── STRENGTHS SLIDER ───────── */
+    .strengths { position: relative; overflow: hidden; }
+    .strengths-track { display: flex; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+    .strength-slide {
+      flex: 0 0 100%; min-height: 520px; position: relative;
+      display: flex; align-items: flex-end; overflow: hidden;
     }
-    .hl-panel {
-      position: relative; overflow: hidden; display: flex;
-      align-items: flex-end; padding: 56px 64px;
+    .strength-slide img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s ease;
     }
-    .hl-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .hl-panel-overlay {
+    .strength-slide.active img { transform: scale(1.03); }
+    .strength-overlay {
       position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,48,135,0.92) 0%, rgba(0,48,135,0.35) 55%, transparent 100%);
     }
-    .hl-panel-content { position: relative; z-index: 1; max-width: 440px; }
-    .hl-panel-content .eyebrow { color: var(--teal); }
-    .hl-panel-content .eyebrow::before { background: var(--teal); }
-    .hl-panel-content h3 { font-size: clamp(22px,2.5vw,32px); font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 16px; }
-    .hl-panel-content p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 28px; }
+    .strength-content { position: relative; z-index: 1; padding: 64px; width: 100%; max-width: 700px; }
+    .strength-content .eyebrow { color: var(--teal); }
+    .strength-content .eyebrow::before { background: var(--teal); }
+    .strength-content h2 { font-size: clamp(28px,3.5vw,48px); font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 18px; }
+    .strength-content p { font-size: 17px; color: rgba(255,255,255,0.78); line-height: 1.7; max-width: 540px; margin-bottom: 32px; }
+
+    /* Controls */
+    .strengths-controls {
+      position: absolute; bottom: 40px; left: 64px;
+      display: flex; align-items: center; gap: 16px; z-index: 2;
+    }
+    .s-prev, .s-next {
+      width: 44px; height: 44px; border: 2px solid rgba(255,255,255,0.4); border-radius: 50%;
+      background: none; cursor: pointer; color: rgba(255,255,255,0.8);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--ease), border-color var(--ease), color var(--ease);
+    }
+    .s-prev:hover, .s-next:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .s-prev svg, .s-next svg { width: 18px; height: 18px; }
+
+    .strengths-dots { display: flex; gap: 8px; }
+    .s-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35);
+      cursor: pointer; border: none; transition: background var(--ease), transform var(--ease);
+    }
+    .s-dot.active { background: var(--orange); transform: scale(1.3); }
+
+    /* Slide counter */
+    .strengths-counter {
+      position: absolute; bottom: 48px; right: 64px;
+      font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.45); z-index: 2;
+    }
+    .strengths-counter span { color: rgba(255,255,255,0.85); }
 
     /* ───────── PROJECTS ───────── */
     .projects { padding: 100px 0; background: var(--gray-50); }
@@ -361,7 +437,7 @@
     .field textarea {
       width: 100%; padding: 13px 16px;
       border: 1.5px solid var(--gray-200); background: var(--white);
-      font-family: inherit; font-size: 14px; color: var(--gray-900);
+      font-family: 'Assistant', sans-serif; font-size: 14px; color: var(--gray-900);
       outline: none; transition: border-color var(--ease);
       border-radius: 1px;
     }
@@ -371,6 +447,53 @@
       width: 100%; justify-content: center; padding: 16px;
       font-size: 16px;
     }
+
+    /* ───────── NEWS ───────── */
+    .news { padding: 96px 0; }
+    .news-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
+    .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .news-card {
+      background: var(--gray-50); padding: 36px 36px 32px;
+      border-top: 3px solid var(--gray-200);
+      transition: border-color var(--ease), background var(--ease);
+      display: flex; flex-direction: column;
+    }
+    .news-card:hover { border-top-color: var(--orange); background: var(--white); box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+    .news-date { font-size: 12px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.5px; margin-bottom: 14px; }
+    .news-card h3 { font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1.45; flex: 1; }
+    .news-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--gray-200); }
+    .news-type { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
+    .news-type svg { width: 14px; height: 14px; }
+    .news-read {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--orange);
+      transition: gap var(--ease);
+    }
+    .news-read:hover { gap: 10px; }
+    .news-read svg { width: 14px; height: 14px; transform: scaleX(-1); }
+
+    /* Quick Links strip */
+    .quick-links { background: var(--gray-50); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); }
+    .quick-links-row { display: flex; }
+    .ql-item {
+      flex: 1; display: flex; align-items: center; gap: 16px;
+      padding: 28px 32px; color: var(--blue); font-weight: 700; font-size: 15px;
+      border-left: 1px solid var(--gray-200); cursor: pointer;
+      transition: background var(--ease), color var(--ease);
+      text-decoration: none;
+    }
+    .ql-item:last-child { border-left: none; }
+    .ql-item:hover { background: var(--white); color: var(--orange); }
+    .ql-item-icon {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--teal-l);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: background var(--ease);
+    }
+    .ql-item:hover .ql-item-icon { background: rgba(244,121,32,0.12); }
+    .ql-item-icon svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+    .ql-item:hover .ql-item-icon svg { stroke: var(--orange); }
+    .ql-item-arrow { margin-right: auto; opacity: 0.3; width: 16px; height: 16px; transform: scaleX(-1); transition: opacity var(--ease); }
+    .ql-item:hover .ql-item-arrow { opacity: 1; }
 
     /* ───────── FOOTER ───────── */
     footer { background: #111827; color: rgba(255,255,255,0.6); }
@@ -441,10 +564,26 @@
       .field-row { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .news-grid { grid-template-columns: 1fr; }
+      .quick-links-row { flex-direction: column; }
+      .ql-item { border-left: none; border-top: 1px solid var(--gray-200); }
+      .strength-content { padding: 36px 24px; }
+      .strengths-controls { left: 24px; bottom: 24px; }
+      .strengths-counter { right: 24px; bottom: 32px; }
+      .nav-actions .nav-btn { display: none; }
     }
   </style>
 </head>
 <body>
+
+<!-- ══ SEARCH OVERLAY ══ -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <input type="text" placeholder="חפשו מוצרים, שירותים, מידע..." id="searchInput" />
+    <button class="search-close" id="searchClose" aria-label="סגור חיפוש">×</button>
+    <div class="search-hint">לחצו Enter לחיפוש · Escape לסגירה</div>
+  </div>
+</div>
 
 <!-- ══ TOP BAR ══ -->
 <div class="topbar">
@@ -459,7 +598,7 @@
     <div class="tb-right">
       <a href="mailto:info@readymix.co.il">info@readymix.co.il</a>
       <div class="tb-divider"></div>
-      <a href="tel:*3393">מוקד שירות: <strong style="color:#fff;">*3393</strong></a>
+      <a href="tel:*3393">*3393</a>
     </div>
   </div>
 </div>
@@ -627,11 +766,18 @@
     </ul>
 
     <div class="nav-actions">
-      <a href="tel:*3393" class="nav-phone">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.07.5H5.1a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        *3393
+      <button class="nav-search-btn" id="searchToggle" aria-label="חיפוש">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="#" class="nav-btn nav-btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        היכן קונים
       </a>
-      <a href="#contact" class="btn btn-orange" style="padding:11px 24px;font-size:14px;">יצירת קשר</a>
+      <a href="#contact" class="nav-btn nav-btn-outline">צור קשר</a>
+      <a href="#" class="nav-btn nav-btn-fill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Readymix Go
+      </a>
     </div>
 
     <button class="hamburger" aria-label="תפריט">
@@ -825,36 +971,71 @@
   </div>
 </section>
 
-<!-- ══ HIGHLIGHT PANELS ══ -->
-<div class="highlight">
-  <!-- Panel 1: Sustainability -->
-  <div class="hl-panel">
-    <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=85&fit=crop" alt="קיימות" />
-    <div class="hl-panel-overlay" style="background:linear-gradient(to top, rgba(0,48,135,0.88) 0%, rgba(0,48,135,0.3) 70%, transparent 100%);"></div>
-    <div class="hl-panel-content">
-      <div class="eyebrow light">קיימות וסביבה</div>
-      <h3>בנייה אחראית<br />לעתיד</h3>
-      <p>
-        כחלק ממחויבות CEMEX ליעד Net Zero 2050, רדימיקס מובילה יוזמות להפחתת טביעת הרגל הפחמנית של ענף הבנייה בישראל.
-      </p>
-      <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 24px;">מידע על קיימות</a>
+<!-- ══ STRENGTHS SLIDER ══ -->
+<section class="strengths" id="strengths">
+  <div class="strengths-track" id="strengthsTrack">
+
+    <!-- Slide 1: בונים עתיד -->
+    <div class="strength-slide active">
+      <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=85&fit=crop" alt="בונים עתיד" />
+      <div class="strength-overlay"></div>
+      <div class="strength-content">
+        <div class="eyebrow light">קיימות וסביבה</div>
+        <h2>בונים עתיד</h2>
+        <p>
+          כחלק ממחויבות CEMEX ליעד Net Zero 2050, רדימיקס מובילה יוזמות להפחתת טביעת הרגל הפחמנית של ענף הבנייה בישראל — בטון ירוק, שימוש בחומרים ממוחזרים וניהול אחראי של משאבי הטבע.
+        </p>
+        <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 28px;">קיימות וסביבה</a>
+      </div>
     </div>
+
+    <!-- Slide 2: מינוף גלובלי -->
+    <div class="strength-slide">
+      <img src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=1600&q=85&fit=crop" alt="מינוף גלובלי" />
+      <div class="strength-overlay"></div>
+      <div class="strength-content">
+        <div class="eyebrow light">חברת בת של CEMEX</div>
+        <h2>מינוף גלובלי</h2>
+        <p>
+          כחברת בת של CEMEX — אחת מחברות חומרי הבנייה הגדולות בעולם — רדימיקס נהנית מגישה לרשת ידע בינלאומית, כוח רכש גלובלי וטכנולוגיות פורצות דרך הנחקרות במרכזי מחקר ב-50 מדינות.
+        </p>
+        <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 28px;">אודות CEMEX</a>
+      </div>
+    </div>
+
+    <!-- Slide 3: חדשנות עם בטון -->
+    <div class="strength-slide">
+      <img src="https://images.unsplash.com/photo-1581093458791-9d42e3c43011?w=1600&q=85&fit=crop" alt="חדשנות עם בטון" />
+      <div class="strength-overlay"></div>
+      <div class="strength-content">
+        <div class="eyebrow light">מחקר ופיתוח</div>
+        <h2>חדשנות עם בטון</h2>
+        <p>
+          רדימיקס מפתחת ומיישמת מוצרי בטון מתקדמים — מבטון עצמי מהדק ועד פתרונות ECOPact — תוך שיתוף פעולה עם מהנדסים, אדריכלים וקבלנים לפיתוח מענה לאתגרי הבנייה של המאה ה-21.
+        </p>
+        <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 28px;">טכנולוגיה וחדשנות</a>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Panel 2: Innovation -->
-  <div class="hl-panel">
-    <img src="https://images.unsplash.com/photo-1581093458791-9d42e3c43011?w=800&q=85&fit=crop" alt="חדשנות" />
-    <div class="hl-panel-overlay" style="background:linear-gradient(to top, rgba(20,20,20,0.88) 0%, rgba(20,20,20,0.25) 70%, transparent 100%);"></div>
-    <div class="hl-panel-content">
-      <div class="eyebrow light">מחקר ופיתוח</div>
-      <h3>חדשנות<br />בכל יציקה</h3>
-      <p>
-        רדימיקס מיישמת פתרונות טכנולוגיים מתקדמים הנחקרים ומפותחים במרכזי מו"פ של CEMEX ברחבי העולם.
-      </p>
-      <a href="#" class="btn btn-ghost" style="font-size:14px;padding:11px 24px;">טכנולוגיה וחדשנות</a>
+  <!-- Controls -->
+  <div class="strengths-controls">
+    <button class="s-prev" id="sPrev" aria-label="הקודם">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="strengths-dots" id="strengthsDots">
+      <button class="s-dot active" data-idx="0"></button>
+      <button class="s-dot" data-idx="1"></button>
+      <button class="s-dot" data-idx="2"></button>
     </div>
+    <button class="s-next" id="sNext" aria-label="הבא">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
-</div>
+
+  <div class="strengths-counter"><span id="sCurrentNum">1</span> / 3</div>
+</section>
 
 <!-- ══ PROJECTS ══ -->
 <section class="projects" id="projects">
@@ -902,6 +1083,103 @@
           <div class="proj-name">קמפוס אוניברסיטאי</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUICK LINKS ══ -->
+<div class="quick-links">
+  <div class="container" style="padding:0;">
+    <div class="quick-links-row">
+      <a href="#" class="ql-item">
+        <div class="ql-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        היסטוריה
+        <svg class="ql-item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#" class="ql-item">
+        <div class="ql-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        בטיחות
+        <svg class="ql-item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#" class="ql-item">
+        <div class="ql-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        קיימות
+        <svg class="ql-item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#" class="ql-item">
+        <div class="ql-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        קריירה
+        <svg class="ql-item-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NEWS ══ -->
+<section class="news" id="news">
+  <div class="container">
+    <div class="news-top">
+      <div>
+        <div class="eyebrow">עדכונים ופרסומים</div>
+        <h2 class="h2">חדשות</h2>
+      </div>
+      <a href="#" class="btn btn-blue">כל החדשות</a>
+    </div>
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-date">מרץ 2026</div>
+        <h3>תו תקן פלטינה לשנת 2026</h3>
+        <div class="news-card-footer">
+          <div class="news-type">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PDF
+          </div>
+          <a href="#" class="news-read">
+            לקריאה ולהורדה
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-date">יוני 2025</div>
+        <h3>דו"ח פומבי לשנת 2024</h3>
+        <div class="news-card-footer">
+          <div class="news-type">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PDF
+          </div>
+          <a href="#" class="news-read">
+            לקריאה ולהורדה
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-date">יוני 2025</div>
+        <h3>חדשנות וטכנולוגיות מתקדמות באיטום הבטון</h3>
+        <div class="news-card-footer">
+          <div class="news-type">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PDF
+          </div>
+          <a href="#" class="news-read">
+            לקריאה ולהורדה
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1067,7 +1345,8 @@
         <h6>החברה</h6>
         <ul>
           <li><a href="#">אודות רדימיקס</a></li>
-          <li><a href="#">מצבת מפעלים</a></li>
+          <li><a href="#">היסטוריה</a></li>
+          <li><a href="#">בטיחות</a></li>
           <li><a href="#">קיימות וסביבה</a></li>
           <li><a href="#">קריירה</a></li>
           <li><a href="#">מדיה ועיתונות</a></li>
@@ -1087,16 +1366,65 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 רדימיקס ישראל בע"מ. כל הזכויות שמורות.</span>
+      <span>© כל הזכויות שמורות לתעשיות רדימיקס (ישראל) בע"מ</span>
       <div class="footer-legal">
-        <a href="#">מדיניות פרטיות</a>
-        <a href="#">תנאי שימוש</a>
-        <a href="#">נגישות</a>
+        <a href="#">מפת אתר</a>
+        <a href="#">תנאי השימוש באתר</a>
+        <a href="#">מדיניות</a>
+        <a href="#">הסדרי נגישות</a>
       </div>
       <div class="cemex-tag">חברת בת של <strong>CEMEX</strong></div>
     </div>
   </div>
 </footer>
 
+<script>
+  // ── Search overlay ──
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchToggle  = document.getElementById('searchToggle');
+  const searchClose   = document.getElementById('searchClose');
+  const searchInput   = document.getElementById('searchInput');
+
+  function openSearch() {
+    searchOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput.focus(), 80);
+  }
+  function closeSearch() {
+    searchOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    searchInput.value = '';
+  }
+
+  searchToggle.addEventListener('click', openSearch);
+  searchClose.addEventListener('click', closeSearch);
+  searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+
+  // ── Strengths slider ──
+  const track  = document.getElementById('strengthsTrack');
+  const slides = track.querySelectorAll('.strength-slide');
+  const dots   = document.querySelectorAll('.s-dot');
+  const counter = document.getElementById('sCurrentNum');
+  let current = 0;
+  let autoTimer;
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(${current * -100}%)`;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    counter.textContent = current + 1;
+  }
+
+  document.getElementById('sPrev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  document.getElementById('sNext').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); resetAuto(); }));
+
+  function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => goTo(current + 1), 5000); }
+  resetAuto();
+</script>
 </body>
 </html>
