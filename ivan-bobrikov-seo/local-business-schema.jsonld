@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "איוון בובריקוב - אימון כושר וליווי תזונתי",
+  "description": "מאמן כושר אישי ויועץ תזונה. ליווי אישי הכולל תוכנית תזונה מותאמת, תוכנית אימונים ומעקב שוטף.",
+  "image": "[להשלמה: URL מלא של תמונת איוון או הלוגו מספריית המדיה]",
+  "url": "https://ivan-bobrikov.com/",
+  "telephone": "+972-54-2105446",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[להשלמה: רחוב ומספר]",
+    "addressLocality": "[להשלמה: עיר]",
+    "postalCode": "[להשלמה: מיקוד]",
+    "addressCountry": "IL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "[להשלמה: לפי הכתובת]",
+    "longitude": "[להשלמה: לפי הכתובת]"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "[להשלמה: HH:MM]",
+      "closes": "[להשלמה: HH:MM]"
+    }
+  ],
+  "priceRange": "₪₪",
+  "sameAs": [
+    "https://www.instagram.com/[להשלמה: i.will.b_fit או ivan.v.bobrikov]/",
+    "https://www.facebook.com/share/1HomK5xn1i/"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "איוון בובריקוב",
+    "jobTitle": "מאמן כושר ויועץ תזונה",
+    "url": "https://ivan-bobrikov.com/",
+    "sameAs": [
+      "https://www.instagram.com/[להשלמה: אותו פרופיל]/",
+      "https://www.facebook.com/share/1HomK5xn1i/"
+    ]
+  }
+}
