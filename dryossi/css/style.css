@@ -185,9 +185,9 @@ svg { display: block; }
 }
 .hero__bg-swirl {
   position: absolute;
-  top: -80px; left: -120px;
-  width: 520px; height: 520px;
-  background: radial-gradient(circle at 30% 30%, #eaf3fb 0%, rgba(234,243,251,0) 62%);
+  top: -120px; right: -140px;
+  width: 560px; height: 560px;
+  background: radial-gradient(circle at 70% 30%, #e8f2fb 0%, rgba(232,242,251,0) 60%);
   border-radius: 50%;
   z-index: 0;
 }
@@ -423,25 +423,30 @@ svg { display: block; }
 }
 .why__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 44px;
   align-items: center;
 }
-.why__points { display: grid; gap: 22px; }
-.why__points li { display: flex; align-items: center; gap: 16px; }
-.why__icon {
-  flex-shrink: 0;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: #fff;
+/* 5 items in a horizontal row: icon on top, label beneath */
+.why__points {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--navy);
-  box-shadow: var(--shadow-soft);
+  justify-content: space-between;
+  gap: 14px;
 }
-.why__icon svg { width: 28px; height: 28px; }
-.why__label { font-size: 17px; font-weight: 600; color: var(--navy); }
+.why__points li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.why__icon {
+  color: var(--navy);
+  display: flex;
+}
+.why__icon svg { width: 40px; height: 40px; }
+.why__label { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.4; }
 
 .why__photo {
   aspect-ratio: 16 / 11;
@@ -638,9 +643,8 @@ svg { display: block; }
   .about__grid { grid-template-columns: 1fr; gap: 34px; }
   .about__aside { max-width: 480px; margin-inline: auto; width: 100%; }
 
-  /* Why stacks, photo first */
+  /* Why stacks, photo on top */
   .why__grid { grid-template-columns: 1fr; gap: 30px; }
-  .why__media { order: -1; }
   .why__photo { max-width: 520px; margin-inline: auto; }
 
   .testi { padding: 40px 64px 34px; }
@@ -675,6 +679,10 @@ svg { display: block; }
 
   .section-title { font-size: 24px; }
   .about { padding-block: 44px; }
+
+  /* Why: wrap the 5 items to 3-per-row on phones */
+  .why__points { flex-wrap: wrap; row-gap: 26px; }
+  .why__points li { flex: 0 0 29%; }
 
   .footer-contact__inner { flex-direction: column; align-items: stretch; }
   .footer-contact__cta { margin-inline-start: 0; }
