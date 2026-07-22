@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>כניסה — Studio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: var(--color-primary); }
+
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      color: white;
+    }
+
+    .login-logo__icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .login-logo__icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: white;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .login-logo__name {
+      font-size: var(--font-size-2xl);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .login-logo__tagline {
+      font-size: var(--font-size-sm);
+      opacity: 0.75;
+      margin-top: 4px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 420px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Tab switcher */
+    .auth-tabs {
+      display: flex;
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .auth-tab.active {
+      background: white;
+      color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+
+    .form-title {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-xs);
+    }
+
+    .form-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .forgot-link {
+      text-align: left;
+      margin-top: -8px;
+      margin-bottom: var(--space-md);
+    }
+
+    .forgot-link a {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      left: var(--space-md);
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      padding: 4px;
+    }
+
+    .password-toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--color-accent);
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .checkbox-group label a { color: var(--color-accent); }
+
+    .divider-or {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+
+    .divider-or span {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .divider-or::before,
+    .divider-or::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .invite-info {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-primary-dark);
+      border-right: 3px solid var(--color-accent);
+      line-height: 1.5;
+    }
+
+    .strength-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .strength-segment {
+      height: 3px;
+      flex: 1;
+      border-radius: 2px;
+      background: var(--color-border);
+      transition: background 0.2s;
+    }
+
+    .strength-segment.filled { background: var(--color-green); }
+    .strength-segment.medium { background: var(--color-orange); }
+    .strength-segment.weak   { background: var(--color-red); }
+
+    .login-footer {
+      text-align: center;
+      margin-top: var(--space-lg);
+      color: rgba(255,255,255,0.65);
+      font-size: var(--font-size-xs);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrapper">
+
+    <!-- Logo -->
+    <div class="login-logo">
+      <div class="login-logo__icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+      <div class="login-logo__name">StudioPro</div>
+      <div class="login-logo__tagline">מערכת ניהול הסטודיו שלך</div>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="login-card">
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login', this)">כניסה</button>
+        <button class="auth-tab" onclick="switchTab('register', this)">הרשמה</button>
+      </div>
+
+      <!-- ── LOGIN PANEL ── -->
+      <div id="panel-login" class="auth-panel active">
+        <div class="form-title">שלום, חזרת 👋</div>
+        <div class="form-subtitle">היכנס עם הפרטים שלך</div>
+
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-email">אימייל</label>
+            <input
+              class="form-input"
+              id="login-email"
+              type="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">סיסמה</label>
+            <div class="password-wrap">
+              <input
+                class="form-input"
+                id="login-password"
+                type="password"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+              >
+              <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-label="הצג סיסמה">
+                <svg id="eye-login" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="forgot-link">
+            <a href="#" onclick="showForgotPassword(event)">שכחתי סיסמה</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            כניסה למערכת
+          </button>
+        </form>
+
+        <div class="divider-or"><span>או</span></div>
+
+        <button class="btn btn-secondary btn-full" onclick="switchTab('register', document.querySelectorAll('.auth-tab')[1])">
+          הרשמה כלקוח חדש
+        </button>
+      </div>
+
+      <!-- ── REGISTER PANEL ── -->
+      <div id="panel-register" class="auth-panel">
+        <div class="form-title">הצטרף אלינו 🎯</div>
+        <div class="form-subtitle">פתח חשבון ותתחיל לאמן</div>
+
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">שם מלא</label>
+            <input
+              class="form-input"
+              id="reg-name"
+              type="text"
+              placeholder="שם פרטי ושם משפחה"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-phone">טלפון נייד</label>
+            <input
+              class="form-input"
+              id="reg-phone"
+              type="tel"
+              placeholder="050-0000000"
+              autocomplete="tel"
+              required
+              dir="ltr"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">אימייל</label>
+            <input
+              class="form-input"
+              id="reg-email"
+              type="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password">סיסמה</label>
+            <div class="password-wrap">
+              <input
+                class="form-input"
+                id="reg-password"
+                type="password"
+                placeholder="לפחות 8 תווים"
+                autocomplete="new-password"
+                required
+                oninput="updatePasswordStrength(this.value)"
+              >
+              <button type="button" class="password-toggle" onclick="togglePassword('reg-password', this)" aria-label="הצג סיסמה">
+                <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+            <div class="strength-bar" id="strength-bar">
+              <div class="strength-segment" id="seg1"></div>
+              <div class="strength-segment" id="seg2"></div>
+              <div class="strength-segment" id="seg3"></div>
+              <div class="strength-segment" id="seg4"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password2">אישור סיסמה</label>
+            <input
+              class="form-input"
+              id="reg-password2"
+              type="password"
+              placeholder="חזור על הסיסמה"
+              autocomplete="new-password"
+              required
+            >
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">
+              קראתי ואישרתי את <a href="#">תקנון המערכת</a> ואת <a href="#">מדיניות הביטול</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            יצירת חשבון
+          </button>
+        </form>
+
+        <div class="invite-info">
+          <strong>💡 טיפ:</strong> אם המאמן שלך כבר שלח לך קישור הזמנה — השתמש בו לכניסה ישירה, בלי צורך להירשם.
+        </div>
+      </div>
+
+    </div><!-- /login-card -->
+
+    <div class="login-footer">
+      © 2026 StudioPro · כל הזכויות שמורות
+    </div>
+
+  </div><!-- /login-wrapper -->
+
+  <!-- Forgot Password Modal -->
+  <div class="modal-overlay" id="forgot-modal" onclick="closeForgotOnOverlay(event)">
+    <div class="modal">
+      <div class="modal__handle"></div>
+      <div class="modal__title">שחזור סיסמה</div>
+      <p class="text-sm text-secondary mb-md">הכנס את האימייל שלך ונשלח לך קישור לאיפוס סיסמה.</p>
+      <form onsubmit="sendResetLink(event)">
+        <div class="form-group">
+          <label class="form-label" for="forgot-email">אימייל</label>
+          <input class="form-input" id="forgot-email" type="email" placeholder="your@email.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">שלח קישור לאיפוס</button>
+        <button type="button" class="btn btn-ghost btn-full mt-sm" onclick="closeModal('forgot-modal')">ביטול</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ── Tab switching ──
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // ── Password toggle ──
+    function togglePassword(id, btn) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      btn.style.opacity = input.type === 'text' ? '1' : '0.5';
+    }
+
+    // ── Password strength ──
+    function updatePasswordStrength(val) {
+      const segs = [1,2,3,4].map(i => document.getElementById('seg' + i));
+      segs.forEach(s => { s.className = 'strength-segment'; });
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const cls = score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'filled';
+      for (let i = 0; i < score; i++) segs[i].classList.add(cls);
+    }
+
+    // ── Login handler ──
+    function handleLogin(e) {
+      e.preventDefault();
+      window.location.href = 'dashboard.html';
+    }
+
+    // ── Register handler ──
+    function handleRegister(e) {
+      e.preventDefault();
+      const p1 = document.getElementById('reg-password').value;
+      const p2 = document.getElementById('reg-password2').value;
+      if (p1 !== p2) {
+        alert('הסיסמאות אינן תואמות');
+        return;
+      }
+      window.location.href = 'dashboard.html';
+    }
+
+    // ── Modals ──
+    function showForgotPassword(e) {
+      e.preventDefault();
+      document.getElementById('forgot-modal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function closeForgotOnOverlay(e) {
+      if (e.target === e.currentTarget) closeModal('forgot-modal');
+    }
+
+    function sendResetLink(e) {
+      e.preventDefault();
+      closeModal('forgot-modal');
+      alert('קישור לאיפוס סיסמה נשלח לאימייל שלך.');
+    }
+  </script>
+</body>
+</html>
