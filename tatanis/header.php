@@ -15,35 +15,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ────────────────────────────────  Fonts  ──────────────────────────────── -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet">
 
-    <!-- ============================================================================ -->
-    <!-- =====================  TRACKING & MARKETING TAGS  =========================== -->
-    <!-- =====================  מסודר לפי סדר חשיבות        =========================== -->
-    <!-- ============================================================================ -->
+    <!-- ===== Tracking & marketing tags (ordered by priority) ===== -->
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 1. Google Tag Manager  (קונטיינר ראשי)                                       -->
-    <!--    עודכן 2026-07-23: קונטיינר חדש GTM-56PG8B58                                -->
-    <!--    חייב להיות גבוה ככל האפשר בתוך ה-<head>                                    -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Google Tag Manager -->
+    <!-- 1. Google Tag Manager (updated 2026-07-23: GTM-56PG8B58) -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-56PG8B58');</script>
-    <!-- End Google Tag Manager -->
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- קונטיינרים ישנים של GTM — הוחלפו 2026-07-23                                   -->
-    <!-- אין לנו גישה אליהם והם שייכים לגורמים אחרים, לכן הושבתו (נשמרים לתיעוד בלבד)   -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- OLD (הוחלף 2026-07-23) — GTM-WW5Z8XB, הוטמע דרך תוסף Google Tag Manager for WordPress by gtm4wp.com:
+    <!-- Old GTM container GTM-WW5Z8XB, replaced 2026-07-23 (no access, kept for reference)
     <script data-cfasync="false" data-pagespeed-no-defer type="text/javascript">
         var dataLayer_content = {"pagePostType":"frontpage","pagePostType2":"single-page","pagePostAuthor":"leah"};
     </script>
@@ -56,10 +43,7 @@
     </script>
     -->
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 2. Google Analytics 4  (מדידה)                                               -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- GA4 — G-GPLT586WDK -->
+    <!-- 2. Google Analytics 4 (G-GPLT586WDK, G-5X8HBGVXT6) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPLT586WDK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -67,17 +51,12 @@
         gtag('js', new Date());
         gtag('config', 'G-GPLT586WDK');
     </script>
-
-    <!-- GA4 — G-5X8HBGVXT6 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5X8HBGVXT6"></script>
     <script>
         gtag('config', 'G-5X8HBGVXT6');
     </script>
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 3. Google Ads  (המרות)                                                       -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Google Ads (gtag.js) — AW-10987612182 -->
+    <!-- 3. Google Ads (AW-10987612182) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10987612182"></script>
     <script>
         gtag('config', 'AW-10987612182');
@@ -86,12 +65,7 @@
         });
     </script>
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 4. Facebook Pixel  (פרסום)                                                   -->
-    <!--    שני פיקסלים: 3031611553724447 + 612656819753675                           -->
-    <!--    טעינת הבסיס פעם אחת, אתחול שני הפיקסלים ו-PageView משותף                   -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Facebook Pixel Code -->
+    <!-- 4. Facebook Pixel (3031611553724447, 612656819753675) -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -111,18 +85,11 @@
         <img height="1" width="1" style="display:none"
              src="https://www.facebook.com/tr?id=612656819753675&ev=PageView&noscript=1"/>
     </noscript>
-    <!-- End Facebook Pixel Code -->
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 5. Bing Ads (Microsoft UET)  — 17229773                                      -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Tracking Code for BING Ads -->
+    <!-- 5. Bing Ads / Microsoft UET (17229773) -->
     <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"17229773"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 6. Twitter / X Pixel  — o6qb0                                                -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Twitter universal website tag code -->
+    <!-- 6. Twitter / X Pixel (o6qb0) -->
     <script>
         !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
         },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
@@ -130,40 +97,29 @@
         twq('init','o6qb0');
         twq('track','PageView');
     </script>
-    <!-- End Twitter universal website tag code -->
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 7. HubSpot  — 20132069                                                       -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- Start of HubSpot Embed Code -->
+    <!-- 7. HubSpot (20132069) -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20132069.js"></script>
-    <!-- End of HubSpot Embed Code -->
     <script type="text/javascript" class="hsq-set-content-id" data-content-id="">
         var _hsq = _hsq || [];
         _hsq.push(["setContentType", ""]);
     </script>
 
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 8. אימותי בעלות (Verification)                                               -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
+    <!-- 8. Facebook domain verification -->
     <meta name="facebook-domain-verification" content="zvb3mfw8a3479xfpy5q53wjn0vivgh" />
 
-    <!-- ============================================================================ -->
-    <!-- =====================  END TRACKING & MARKETING TAGS  ======================= -->
-    <!-- ============================================================================ -->
+    <!-- ===== End tracking & marketing tags ===== -->
 
-    <!-- ─────────────────────────────  Libraries  ─────────────────────────────── -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
 
     <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<!-- Google Tag Manager (noscript) — עודכן 2026-07-23: GTM-56PG8B58 -->
+<!-- Google Tag Manager (noscript) - updated 2026-07-23: GTM-56PG8B58 -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-56PG8B58"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<!-- OLD noscript (הוחלף 2026-07-23) — GTM-K6H9VZ5:
+<!-- Old GTM noscript GTM-K6H9VZ5, replaced 2026-07-23
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6H9VZ5"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 -->
