@@ -9,19 +9,13 @@
  * @since Twenty Twelve 1.0
  */
 ?><!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if !(IE 7) & !(IE 8)]><!-->
 <html <?php language_attributes(); ?>>
-<!--<![endif]-->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ────────────────────────────────  Fonts  ──────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;700&display=swap"
@@ -184,6 +178,7 @@
     <!-- =====================  END TRACKING & MARKETING TAGS  ======================= -->
     <!-- ============================================================================ -->
 
+    <!-- ─────────────────────────────  Libraries  ─────────────────────────────── -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
 
     <?php wp_head(); ?>
@@ -198,24 +193,25 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6H9VZ5"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 -->
+
 <header class="header">
     <div class="header__wrapper">
         <div class="header__top">
             <div class="container">
                 <div class="header__top-inner">
                     <div class="mob__link__box">
-                        <a href="mailto:<?php echo get_field('email','option');?>">
-                            <img src="<?php echo get_template_directory_uri(); ?>/images/icon/email-icon-orange.svg" alt="@">
+                        <a href="mailto:<?php echo get_field('email','option'); ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/icon/email-icon-orange.svg" alt="Email">
                         </a>
                     </div>
                     <div class="header__lang">
                         <ul>
-                            <?php //languages_list(); ?>
+                            <?php // languages_list(); ?>
                         </ul>
                     </div>
                     <div class="header__link">
                         <?php
-                        $args = array(
+                        $top_menu_args = array(
                             'theme_location'  => '',
                             'menu'            => 'Top header menu',
                             'container'       => '',
@@ -229,15 +225,14 @@
                             'after'           => '',
                             'link_before'     => '',
                             'link_after'      => '',
-                            'items_wrap'      => '<ul  class="">%3$s</ul>',
-                            'depth'           => 0
+                            'items_wrap'      => '<ul class="">%3$s</ul>',
+                            'depth'           => 0,
                         );
-
-                        wp_nav_menu(  $args  );
+                        wp_nav_menu( $top_menu_args );
                         ?>
                     </div>
                     <div class="mob__menu__icon">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/icon/menu-icon-orange.svg" alt="=">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/icon/menu-icon-orange.svg" alt="Menu">
                     </div>
                 </div>
             </div>
@@ -246,14 +241,15 @@
             <div class="container">
                 <div class="header__main-inner">
                     <div class="header__logo">
+                        <?php $logo = get_field( 'logo', 'option' ); ?>
                         <a href="<?php echo get_home_url(); ?>">
-                            <img src="<?php echo get_field('logo','option')['url']; ?>" alt="<?php echo get_field('logo','option')['url']; ?>">
+                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo esc_attr( $logo['alt'] ?: get_bloginfo( 'name' ) ); ?>">
                         </a>
                     </div>
                     <div class="header__main-wrapper">
                         <nav class="header__nav">
                             <?php
-                            $args = array(
+                            $main_menu_args = array(
                                 'theme_location'  => '',
                                 'menu'            => 'Header menu',
                                 'container'       => '',
@@ -267,17 +263,16 @@
                                 'after'           => '',
                                 'link_before'     => '',
                                 'link_after'      => '',
-                                'items_wrap'      => '<ul  class="">%3$s</ul>',
-                                'depth'           => 0
+                                'items_wrap'      => '<ul class="">%3$s</ul>',
+                                'depth'           => 0,
                             );
-
-                            $menu=wp_nav_menu(  $args  );
-                            $menu=str_replace('sub-menu','submenu sub-menu',$menu);
+                            $menu = wp_nav_menu( $main_menu_args );
+                            $menu = str_replace( 'sub-menu', 'submenu sub-menu', $menu );
                             echo $menu;
                             ?>
                         </nav>
                         <div class="header__btn">
-                            <a class="btn" href="<?php echo get_field('button_link','option');?>"><?php echo get_field('button_text','option');?></a>
+                            <a class="btn" href="<?php echo get_field( 'button_link', 'option' ); ?>"><?php echo get_field( 'button_text', 'option' ); ?></a>
                         </div>
                     </div>
                 </div>
@@ -286,9 +281,9 @@
     </div>
 </header>
 
-
 <div class="print-header">
     <div class="print-header__img">
-        <img src="<?php echo get_field('logo_print','option')['url']; ?>" alt="<?php echo get_field('logo_print','option')['alt']; ?>">
+        <?php $logo_print = get_field( 'logo_print', 'option' ); ?>
+        <img src="<?php echo $logo_print['url']; ?>" alt="<?php echo esc_attr( $logo_print['alt'] ); ?>">
     </div>
 </div>
