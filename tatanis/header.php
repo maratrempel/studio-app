@@ -114,39 +114,13 @@
     <!-- End Facebook Pixel Code -->
 
     <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 5. LinkedIn Insight Tag  (פרסום)                                             -->
-    <!--    TODO: להזין Partner ID אמיתי במקום XXXXXXX ולהסיר את ההערה                -->
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- LinkedIn Insight Tag — ממתין ל-Partner ID:
-    <script type="text/javascript">
-        _linkedin_partner_id = "XXXXXXX";
-        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-    </script>
-    <script type="text/javascript">
-        (function(l) {
-            if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-            window.lintrk.q=[]}
-            var s = document.getElementsByTagName("script")[0];
-            var b = document.createElement("script");
-            b.type = "text/javascript";b.async = true;
-            b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-            s.parentNode.insertBefore(b, s);})(window.lintrk);
-    </script>
-    <noscript>
-        <img height="1" width="1" style="display:none;" alt=""
-             src="https://px.ads.linkedin.com/collect/?pid=XXXXXXX&fmt=gif" />
-    </noscript>
-    -->
-
-    <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 6. Bing Ads (Microsoft UET)  — 17229773                                      -->
+    <!-- 5. Bing Ads (Microsoft UET)  — 17229773                                      -->
     <!-- ────────────────────────────────────────────────────────────────────────── -->
     <!-- Tracking Code for BING Ads -->
     <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"17229773"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 
     <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 7. Twitter / X Pixel  — o6qb0                                                -->
+    <!-- 6. Twitter / X Pixel  — o6qb0                                                -->
     <!-- ────────────────────────────────────────────────────────────────────────── -->
     <!-- Twitter universal website tag code -->
     <script>
@@ -159,7 +133,7 @@
     <!-- End Twitter universal website tag code -->
 
     <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 8. HubSpot  — 20132069                                                       -->
+    <!-- 7. HubSpot  — 20132069                                                       -->
     <!-- ────────────────────────────────────────────────────────────────────────── -->
     <!-- Start of HubSpot Embed Code -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20132069.js"></script>
@@ -170,7 +144,7 @@
     </script>
 
     <!-- ────────────────────────────────────────────────────────────────────────── -->
-    <!-- 9. אימותי בעלות (Verification)                                               -->
+    <!-- 8. אימותי בעלות (Verification)                                               -->
     <!-- ────────────────────────────────────────────────────────────────────────── -->
     <meta name="facebook-domain-verification" content="zvb3mfw8a3479xfpy5q53wjn0vivgh" />
 
