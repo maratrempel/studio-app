@@ -1,0 +1,7 @@
+{
+  "name": "meshek-david-tests",
+  "private": true,
+  "description": "בדיקות נגישות (axe) ומקצה-לקצה (Playwright). דורש שרת מקומי: python3 -m http.server 8765 משורש הריפו.",
+  "scripts": { "axe": "node axe-run.js", "e2e": "node e2e.js" },
+  "devDependencies": { "axe-core": "4.10.2" }
+}

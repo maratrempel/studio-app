@@ -1,0 +1,84 @@
+<!--
+title: חנות | משק דוד
+description: הזמנת גבינות עיזים, יוגורט ומארזים ממשק דוד. משלוח ביום חמישי להזמנות עד רביעי ב-12:00, או איסוף עצמי מהמשק באחיטוב.
+scripts: combobox.js shop.js
+-->
+<header class="page-hero">
+  <div class="container">
+    <h1>החנות של המשק</h1>
+    <p>גבינות עיזים בעבודת יד, יוגורט ומארזים — ישר מהמשק אליכם. <a class="kosher-link" href="https://www.meshekdavid.com/_files/ugd/5b510c_6bb5bd4b31484ba5a8daac63e1d2b300.pdf" target="_blank" rel="noopener">תעודת כשרות (PDF, נפתח בחלון חדש)</a></p>
+  </div>
+</header>
+
+<section class="section" aria-labelledby="products-title" style="padding-top:32px">
+  <div class="container">
+    <div id="settlement-status" class="settlement-status">
+      <p class="settlement-status__text" aria-live="polite"></p>
+      <button type="button" id="change-settlement" class="btn btn--ghost" aria-haspopup="dialog">בדיקת אזור משלוח</button>
+    </div>
+
+    <h2 id="products-title" class="visually-hidden">מוצרים</h2>
+    <div class="shop-toolbar">
+      <div id="cat-filter" class="chips" role="group" aria-label="סינון לפי קטגוריה"></div>
+      <p id="result-count" class="result-count"></p>
+    </div>
+    <ul id="product-grid" class="product-grid"></ul>
+    <noscript><p>כדי להזמין באתר יש להפעיל JavaScript, או להזמין בטלפון 054-9290123.</p></noscript>
+  </div>
+</section>
+
+<!-- חלון בדיקת יישוב -->
+<dialog id="gate-dialog" aria-labelledby="gate-title" aria-describedby="gate-desc">
+  <div class="dialog__inner">
+    <button type="button" class="icon-link dialog__close" data-close><span aria-hidden="true">✕</span><span class="visually-hidden">סגירה</span></button>
+    <h2 id="gate-title">לאן לשלוח את הגבינות?</h2>
+    <p id="gate-desc">אזור החלוקה שלנו עדיין מוגבל. הקלידו את שם היישוב ונבדוק אם אנחנו מגיעים אליכם. הזמנות עד יום רביעי ב-12:00 מגיעות ביום חמישי אחר הצהריים והערב.</p>
+    <form id="gate-form" novalidate>
+      <div class="field">
+        <label for="gate-input">יישוב</label>
+        <div class="combo" id="gate-combo">
+          <input id="gate-input" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="gate-list" autocomplete="off" aria-describedby="gate-error">
+          <ul id="gate-list" role="listbox" aria-label="יישובים במסלול החלוקה" hidden></ul>
+          <p class="combo__status visually-hidden" aria-live="polite"></p>
+        </div>
+        <p id="gate-error" class="field-msg field-msg--error"></p>
+      </div>
+      <div class="btn-row">
+        <button type="submit" class="btn btn--primary">בדיקה</button>
+        <button type="button" class="btn btn--ghost" data-pickup>אאסוף בעצמי מהמשק</button>
+        <button type="button" class="link-btn" data-close>רק מסתכלים</button>
+      </div>
+    </form>
+    <div id="gate-result" class="gate-result" hidden></div>
+  </div>
+</dialog>
+
+<!-- תצוגה מהירה -->
+<dialog id="quickview" aria-labelledby="qv-title">
+  <div class="dialog__inner">
+    <button type="button" class="icon-link dialog__close" data-close><span aria-hidden="true">✕</span><span class="visually-hidden">סגירה</span></button>
+    <div class="qv">
+      <div class="qv__media"><img src="assets/img/placeholder.svg" alt="" width="400" height="400"></div>
+      <div>
+        <h2 id="qv-title"></h2>
+        <p class="qv__desc"></p>
+        <p class="qv__unit"></p>
+        <p class="qv__price"></p>
+        <form id="qv-form">
+          <div class="field">
+            <label for="qv-qty">כמות</label>
+            <select id="qv-qty"></select>
+          </div>
+          <p class="qv__total">סה״כ: <strong id="qv-total" aria-live="polite"></strong></p>
+          <button type="submit" class="btn btn--primary btn--block">הוספה לסל</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden>
+  <span class="toast__msg"></span>
+  <a href="cart.html">למעבר לסל</a>
+  <button type="button" data-dismiss><span aria-hidden="true">✕</span><span class="visually-hidden">סגירת ההודעה</span></button>
+</div>

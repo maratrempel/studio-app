@@ -1,0 +1,112 @@
+<!--
+title: תשלום | משק דוד
+description: השלמת הזמנה בחנות משק דוד.
+scripts: combobox.js checkout.js
+-->
+<section class="section" style="padding-top:40px">
+  <div class="container">
+    <h1>השלמת ההזמנה</h1>
+    <p id="returning-note" class="delivery-note" hidden>שמחים לראות אותך שוב, <span id="returning-name"></span>! מילאנו את הפרטים מההזמנה הקודמת. אפשר לשנות אותם כאן.</p>
+
+    <form id="checkout-form" class="checkout-layout" novalidate>
+      <div>
+        <div id="error-summary" class="error-summary" tabindex="-1" hidden role="alert">
+          <h2>יש לתקן את השדות הבאים:</h2>
+          <ul></ul>
+        </div>
+        <p class="hint">שדות המסומנים ב-<span class="req" aria-hidden="true">*</span><span class="visually-hidden">כוכבית</span> הם שדות חובה.</p>
+
+        <fieldset>
+          <legend>פרטי המזמין</legend>
+          <div class="form-grid">
+            <div class="field"><label for="firstName">שם פרטי <span class="req" aria-hidden="true">*</span></label><input id="firstName" type="text" autocomplete="given-name" aria-required="true"></div>
+            <div class="field"><label for="lastName">שם משפחה <span class="req" aria-hidden="true">*</span></label><input id="lastName" type="text" autocomplete="family-name" aria-required="true"></div>
+            <div class="field"><label for="phone">טלפון נייד <span class="req" aria-hidden="true">*</span></label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" aria-required="true" aria-describedby="phone-hint"><p id="phone-hint" class="hint">לתיאום המשלוח</p></div>
+            <div class="field"><label for="email">דוא״ל <span class="req" aria-hidden="true">*</span></label><input id="email" type="email" autocomplete="email" aria-required="true" aria-describedby="email-hint"><p id="email-hint" class="hint">לשליחת אישור הזמנה וחשבונית</p></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>איך תרצו לקבל את ההזמנה?</legend>
+          <div class="radio-cards">
+            <label><input type="radio" name="method" id="method-delivery" value="delivery" checked><span>משלוח עד הבית<br><small data-delivery-text></small></span></label>
+            <label><input type="radio" name="method" id="method-pickup" value="pickup"><span>איסוף עצמי מהמשק באחיטוב<br><small>א׳–ה׳ 09:00–17:00, ו׳ עד 14:00 · ללא עלות</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset id="address-fields">
+          <legend>כתובת המזמין</legend>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label for="billSettlement">יישוב <span class="req" aria-hidden="true">*</span></label>
+              <div class="combo" id="bill-combo">
+                <input id="billSettlement" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bill-list" autocomplete="off" aria-required="true" aria-describedby="bill-settlement-msg">
+                <ul id="bill-list" role="listbox" aria-label="יישובים במסלול החלוקה" hidden></ul>
+                <p class="combo__status visually-hidden" aria-live="polite"></p>
+              </div>
+              <p id="bill-settlement-msg" class="field-msg" aria-live="polite"></p>
+            </div>
+            <div class="field"><label for="street">רחוב <span class="req" aria-hidden="true">*</span></label><input id="street" type="text" autocomplete="address-line1" aria-required="true"></div>
+            <div class="field"><label for="house">מספר בית <span class="req" aria-hidden="true">*</span></label><input id="house" type="text" inputmode="numeric" aria-required="true"></div>
+            <div class="field field--full"><label for="apt">דירה / כניסה / הערות לשליח</label><input id="apt" type="text" autocomplete="address-line2"></div>
+          </div>
+          <div id="ship-different-wrap" class="check" style="margin-top:12px">
+            <input type="checkbox" id="ship-different"><label for="ship-different" class="inline">שליחה לכתובת אחרת (למשל, לנמען המתנה)</label>
+          </div>
+        </fieldset>
+
+        <fieldset id="ship-fields" hidden>
+          <legend>כתובת למשלוח</legend>
+          <div class="form-grid">
+            <div class="field"><label for="shipName">שם המקבל <span class="req" aria-hidden="true">*</span></label><input id="shipName" type="text" autocomplete="shipping name"></div>
+            <div class="field"><label for="shipPhone">טלפון המקבל <span class="req" aria-hidden="true">*</span></label><input id="shipPhone" type="tel" inputmode="tel" autocomplete="shipping tel"></div>
+            <div class="field field--full">
+              <label for="shipSettlement">יישוב <span class="req" aria-hidden="true">*</span></label>
+              <div class="combo" id="ship-combo">
+                <input id="shipSettlement" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ship-list" autocomplete="off" aria-describedby="ship-settlement-msg">
+                <ul id="ship-list" role="listbox" aria-label="יישובים במסלול החלוקה" hidden></ul>
+                <p class="combo__status visually-hidden" aria-live="polite"></p>
+              </div>
+              <p id="ship-settlement-msg" class="field-msg" aria-live="polite"></p>
+            </div>
+            <div class="field"><label for="shipStreet">רחוב <span class="req" aria-hidden="true">*</span></label><input id="shipStreet" type="text" autocomplete="shipping address-line1"></div>
+            <div class="field"><label for="shipHouse">מספר בית <span class="req" aria-hidden="true">*</span></label><input id="shipHouse" type="text" inputmode="numeric"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>מתנה</legend>
+          <div class="check"><input type="checkbox" id="is-gift"><label for="is-gift" class="inline">ההזמנה היא מתנה</label></div>
+          <div id="gift-fields" hidden>
+            <div class="field"><label for="giftMessage">ברכה שתצורף למשלוח</label><textarea id="giftMessage" maxlength="300" aria-describedby="gift-hint"></textarea><p id="gift-hint" class="hint">עד 300 תווים</p></div>
+            <div class="check"><input type="checkbox" id="hidePrices" checked><label for="hidePrices" class="inline">בלי מחירים בתעודת המשלוח</label></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>אישורים</legend>
+          <div class="field check">
+            <input type="checkbox" id="marketing" checked>
+            <label for="marketing" class="inline">אני מסכים/ה לקבל מדי פעם עדכונים, מבצעים ודברי פרסומת ממשק דוד בדוא״ל וב-SMS. אפשר להסיר את ההסכמה בכל עת.</label>
+          </div>
+          <div class="field check">
+            <input type="checkbox" id="terms" aria-required="true">
+            <label for="terms" class="inline">קראתי ואני מאשר/ת את <a href="terms.html" target="_blank">תקנון האתר<span class="visually-hidden"> (נפתח בחלון חדש)</span></a> ואת <a href="privacy.html" target="_blank">מדיניות הפרטיות<span class="visually-hidden"> (נפתח בחלון חדש)</span></a> <span class="req" aria-hidden="true">*</span></label>
+          </div>
+          <div class="field check">
+            <input type="checkbox" id="save-details" checked>
+            <label for="save-details" class="inline">שמירת הפרטים להזמנות הבאות (אזור אישי)</label>
+          </div>
+          <p class="consent-note">הפרטים נאספים לצורך ביצוע ההזמנה, המשלוח והפקת חשבונית, ויועברו רק לגורמים הנדרשים לכך: חברת הסליקה, השליח, ובהסכמתכם גם מערכת הדיוור. חובה למסור את הפרטים המסומנים בכוכבית, אחרת לא נוכל להשלים את ההזמנה. אפשר לעיין במידע, לתקן אותו או לבקש למחוק אותו דרך האזור האישי. <a href="privacy.html">למדיניות הפרטיות המלאה</a>.</p>
+        </fieldset>
+      </div>
+
+      <aside class="checkout-aside" aria-labelledby="summary-title">
+        <h2 id="summary-title">סיכום ההזמנה</h2>
+        <div id="order-summary" aria-live="polite"></div>
+        <button type="submit" class="btn btn--primary btn--block">למעבר לתשלום מאובטח</button>
+        <p class="hint">באב-הטיפוס התשלום מדומה. באתר החי התשלום יתבצע בעמוד מאובטח של חברת הסליקה, ופרטי האשראי לא יישמרו באתר.</p>
+      </aside>
+    </form>
+  </div>
+</section>

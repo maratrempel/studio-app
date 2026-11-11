@@ -1,0 +1,48 @@
+<!--
+title: צרו קשר | משק דוד
+description: משק דוד, הדקל 33 מושב אחיטוב. טלפון 054-9290123, וואטסאפ ודוא״ל. חנות המשק פתוחה א׳–ה׳ 09:00–17:00, ו׳ עד 14:00.
+scripts: contact.js
+-->
+<header class="page-hero">
+  <div class="container">
+    <h1>צרו קשר</h1>
+    <p>נשמח לשמוע מכם — הזמנות, ביקורים, סדנאות או סתם שאלה על גבינה.</p>
+  </div>
+</header>
+<section class="section">
+  <div class="container split" style="align-items:start">
+    <div>
+      <h2>פרטי התקשרות</h2>
+      <ul class="info-list">
+        <li><strong>כתובת:</strong> הדקל 33, מושב אחיטוב, ד.נ. עמק חפר</li>
+        <li><strong>טלפון:</strong> <a href="tel:0549290123">054-9290123</a></li>
+        <li><strong>וואטסאפ:</strong> <a href="https://wa.me/message/A567ZJF4D7WIM1" target="_blank" rel="noopener">שליחת הודעה<span class="visually-hidden"> (נפתח בחלון חדש)</span></a></li>
+        <li><strong>דוא״ל:</strong> <a href="mailto:oronir8@gmail.com">oronir8@gmail.com</a></li>
+        <li><strong>שעות החנות:</strong> א׳–ה׳ 09:00–17:00, ו׳ 09:00–14:00</li>
+      </ul>
+    </div>
+    <div>
+      <h2 id="form-title">השאירו פרטים ונחזור אליכם</h2>
+      <form id="contact-form" class="form-grid" novalidate aria-labelledby="form-title">
+        <p class="field--full hint">שדות המסומנים ב-<span class="req" aria-hidden="true">*</span><span class="visually-hidden">כוכבית</span> הם שדות חובה.</p>
+        <div class="field field--full">
+          <label for="c-name">שם מלא <span class="req" aria-hidden="true">*</span></label>
+          <input id="c-name" type="text" autocomplete="name" required aria-required="true">
+        </div>
+        <div class="field field--full">
+          <label for="c-phone">מספר טלפון <span class="req" aria-hidden="true">*</span></label>
+          <input id="c-phone" type="tel" autocomplete="tel" inputmode="tel" required aria-required="true">
+        </div>
+        <div class="field field--full">
+          <label for="c-msg">איך נוכל לעזור?</label>
+          <textarea id="c-msg"></textarea>
+        </div>
+        <p class="field--full consent-note">הפרטים ישמשו אך ורק כדי לחזור אליכם בנוגע לפנייה, ולא יועברו לאחר. מסירתם אינה חובה לפי חוק, אך בלעדיהם לא נוכל לחזור אליכם. <a href="privacy.html">מדיניות הפרטיות</a>.</p>
+        <div class="field field--full">
+          <button class="btn btn--primary" type="submit">שליחה</button>
+          <p id="contact-status" class="field-msg" role="status"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
